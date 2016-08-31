@@ -20,7 +20,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -h, --help                output usage information
 -V, --version             output the version number
 -s, --steps <path>        path to step definitions. defaults to ./step-definitions
--p, --pageObjects <path>  path to page objects
+-p, --pageObjects <path>  path to page objects. defaults to ./page-objects
 -b, --browser <path>      name of browser to use. defaults to chrome
 -t, --tags <tagName>      name of tag to run
 ```
@@ -30,7 +30,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
 
 ```gherkin
-# features/google-search.feature
+# ./features/google-search.feature
 
 Feature: Searching for vote cards app
   As an internet user
@@ -47,7 +47,7 @@ Feature: Searching for vote cards app
 Step definitions are the glue between features files and the actual system under test. Step definitions are written in JavaScript and should be stored in either ```./features/step-definitions``` or ```./step-definitions``` folder. If you use a different location you must provide the path via the ```-s``` command line switch.
 
 ```javascript
-// step-definitions/google-search.js
+// ./step-definitions/google-search.js
 
 module.exports = function () {
 
@@ -78,14 +78,52 @@ The following variables are available within the ```Given()```, ```When()``` and
 | :--- | :--- |
 | `driver`    | an instance of [selenium web driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html) (_the browser_) |
 | `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods |
+| `page`      | page objects |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
 | `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
 | `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
 | `assert`    | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
 | `trace`     | handy trace method to log console output with increased visibility |
 
+### Page objects
 
-### Event Handlers
+Page objects are accessible via the global ```page``` variable and are automatically loaded from ```./page-objects``` or the path specified using the ```-p``` switch. Page objects are exposed using the camel case version of their filename, for example ```./page-objects/google-search.js``` becomes ```page.googleSearch```. Page objects also have access to the same runtime variables described in step definitions section above.
+
+An example page object:
+
+```javascript
+// ./page-objects/gogole-search.js
+
+module.exports = {
+
+    elements: {
+        searchInput: by.name('q')
+    },
+
+    preformSearch: function (keywords) {
+
+        // notice the element path below use the full page qualifier
+        var input = driver.findElement(page.googleSearch.elements.searchInput);
+
+        input.sendKeys(keywords);
+        input.sendKeys(selenium.Key.ENTER);
+    }
+};
+```
+
+And its usage within a step definition:
+
+```js
+module.exports = function () {
+
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+
+        page.googleSearch.preformSearch(searchQuery);
+    });
+};
+```
+
+### Event handlers
 
 You can register event handlers for the following events within the cucumber lifecycle.
 

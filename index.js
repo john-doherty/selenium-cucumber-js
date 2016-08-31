@@ -6,7 +6,7 @@ program
   .version(pjson.version)
   .description(pjson.description)
   .option('-s, --steps <path>', 'path to step definitions. defaults to ./step-definitions', './step-definitions')
-  .option('-p, --pageObjects <path>', 'path to page objects')
+  .option('-p, --pageObjects <path>', 'path to page objects. defaults to ./page-objects', './page-objects')
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .parse(process.argv);
@@ -15,17 +15,20 @@ program.on('--help', function(){
     console.log('  For more details please visit https://github.com/john-doherty/selenium-cucumber-js#readme\n');
 });
 
-// store browserName globally (used within world.js)
+// store browserName globally (used within world.js to build driver)
 global.browserName = program.browser;
+
+// used within world.js to import page objects
+global.pageObjects = path.resolve(program.pageObjects);
 
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);
 
-// add cucumber world as first required script (this sets up the gloals)
+// add cucumber world as first required script (this sets up the globals)
 process.argv.push('-r');
 process.argv.push(path.join(process.cwd(), 'runtime/world.js'));
 
-// add cucumber world as first required script (this sets up the gloals)
+// add path to import step definitions
 process.argv.push('-r');
 process.argv.push(program.steps);
 

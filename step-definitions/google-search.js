@@ -8,6 +8,9 @@ module.exports = function () {
         
         input.sendKeys(searchQuery);
         input.sendKeys(selenium.Key.ENTER);
+
+        // page object example
+        //page.search.preformSearch(searchQuery);
     });
 
     this.Then(/^I should see some results$/, function () {

@@ -7,6 +7,7 @@
 
 var argv = require('yargs').argv,
     fs = require('fs'),
+    requireDir = require('require-dir'),
     chalk = require('chalk'),
     selenium = require('selenium-webdriver'),
     phantomjs = require('phantomjs'),
@@ -85,6 +86,19 @@ function World() {
         // make property/method avaiable as a global (no this. prefix required)
         global[key] = runtime[key];
     });
+
+    // import page objects (after global vars have been created)
+    if (global.pageObjects) {
+
+        // require all page objects using camelcase as object names
+        runtime.page = requireDir(global.pageObjects, { camelcase: true });
+
+        // expose locally
+        self.page = runtime.page;
+
+        // expose globally
+        global.page = runtime.page;
+    };
 }
 
 // export the "World" required by cucubmer to allow it to expose methods within step def's
