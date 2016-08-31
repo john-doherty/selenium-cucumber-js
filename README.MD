@@ -74,15 +74,15 @@ module.exports = function () {
 
 The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
 
-| variable | description |
+| Variable | Description |
 |-|-|
-| `driver`    | the configured browser object |
-| `selenium`  | access to the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) object |
-| `by`        | access to the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class to locate elements on the page |
-| `until`     | |
-| `expect`    | |
-| `assert`    | |
-| `trace`     | |
+| `driver`    | the [selenium driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Driver.html) object (_the current browser_) |
+| `selenium`  | the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) node module |
+| `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
+| `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
+| `expect`    | [chai expect](http://chaijs.com/api/bdd/) can be used within steps to test values |
+| `assert`    | [chai assert](http://chaijs.com/api/assert/) can also be used to assert values |
+| `trace`     | handy trace method will log console output in blue to make it standout from cucumber output |
 
 
 ## How to debug
