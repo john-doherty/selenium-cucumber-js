@@ -87,8 +87,7 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 ## How to debug
 
-Selenium methods
-You can attach a ```.then``` function to any Selenium webdriver method and use it to insert a ```debugger``` statement, for example:
+Selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that will be resolved when the method completes. This means you can assign a ```.then``` function and use it to trigger your debugger by inserting a ```debugger``` statement, for example:
 
 ```js
 module.exports = function () {
@@ -108,9 +107,9 @@ module.exports = function () {
 };
 ```
 
-## Example
+## Demo
 
-You can run the example included in this project using the following command:
+This project includes an example feature file and step definition to help you get started. You can run the example using the following command:
 
 ```bash
 node ./node_modules/selenium-cucumber-js/index.js
