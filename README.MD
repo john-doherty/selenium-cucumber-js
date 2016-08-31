@@ -85,6 +85,17 @@ The following variables are available within the ```Given()```, ```When()``` and
 | `trace`     | handy trace method to log console output with increased visibility |
 
 
+### Event Handlers
+
+You can register event handlers for the following events within the cucumber lifecycle.
+
+| Event          | Example                                                     |
+|----------------|-------------------------------------------------------------|
+| BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {}) ```  |
+| BeforeScenario | ```this.BeforeScenario(function(scenario, callback) {});``` |
+| AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```  |
+| AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```    |
+
 ## How to debug
 
 Selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that will be resolved when the method completes. This means you can assign a ```.then``` function and use it to trigger your debugger by inserting a ```debugger``` statement, for example:
