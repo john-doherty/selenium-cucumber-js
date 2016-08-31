@@ -76,13 +76,13 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 | Variable | Description |
 | :--- | :--- |
-| `driver`    | the [selenium driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Driver.html) object (_the current browser_) |
-| `selenium`  | the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) node module |
+| `driver`    | an instance of [selenium web driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html) (_the browser_) |
+| `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
 | `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
-| `expect`    | [chai expect](http://chaijs.com/api/bdd/) can be used within steps to test values |
-| `assert`    | [chai assert](http://chaijs.com/api/assert/) can also be used to assert values |
-| `trace`     | handy trace method will log console output in blue to make it standout from cucumber output |
+| `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
+| `assert`    | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
+| `trace`     | handy trace method to log console output with increased visibility |
 
 
 ## How to debug
