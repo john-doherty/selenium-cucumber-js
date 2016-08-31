@@ -5,7 +5,7 @@ A JavaScript BDD framework created using the official [selenium-webdriver](https
 ## Installation
 
 ```bash
-npm install --save selenium-cucumber-js
+npm install selenium-cucumber-js --save-dev
 ```
 
 ## Usage
