@@ -25,3 +25,48 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -b, --browser <path>      name of browser to use. defaults to chrome
 -t, --tags <tagName>      name of tag to run
 ```
+
+### Feature file
+
+Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin)
+
+```gherkin
+# features/google-search.feature
+
+Feature: Searching for vote cards app
+  As an internet user
+  In order to find out more about the itunes vote cards app
+  I want to be able to search for information about the itunes vote cards app
+  
+  Scenario: Google search for vote cards app
+    When I search Google for "itunes vote cards app"
+    Then I should see some results
+```
+
+### Step definition
+
+```javascript
+// step-definitions/google-search.js
+
+module.exports = function () {
+
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+
+        driver.get('http://www.google.com');
+
+        var input = driver.findElement(by.name('q'));
+
+        input.sendKeys(searchQuery);
+        input.sendKeys(selenium.Key.ENTER);
+    });
+
+    this.Then(/^I should see some results$/, function () {
+
+        driver.wait(until.elementsLocated(by.css('div.g')), 10000);
+
+        return driver.findElements(by.css('div.g')).then(function (elements) {
+            expect(elements.length).to.not.equal(0);
+        });
+    });
+};
+```
