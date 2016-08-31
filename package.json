@@ -1,0 +1,32 @@
+{
+  "name": "selenium-cucumber-js",
+  "version": "0.0.1",
+  "description": "A JavaScript BDD framework created using the official selenium-webdriver for JavaScript and cucumber-js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Doherty <contact@johndoherty.info> (https://courseof.life/johndoherty)",
+  "license": "ISC",
+  "keywords": [
+    "selenium",
+    "cucumber",
+    "cucumber-js",
+    "webdriver",
+    "bdd"
+  ],
+  "bugs": {
+    "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
+  },
+  "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chalk": "^1.1.3",
+    "chromedriver": "^2.23.1",
+    "commander": "^2.9.0",
+    "cucumber": "^1.2.2",
+    "phantomjs": "^2.1.7",
+    "selenium-webdriver": "^3.0.0-beta-2",
+    "yargs": "^5.0.0"
+  }
+}
