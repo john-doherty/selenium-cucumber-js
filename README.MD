@@ -1,6 +1,6 @@
 # selenium-cucumber-js
 
-A JavaScript BDD framework that uses the official [selenium-webdriver](https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver) for Node and [cucumber-js](https://github.com/cucumber/cucumber-js).
+A debuggable JS BDD framework that uses the official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") for Node and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
 ## Installation
 
@@ -27,7 +27,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 
 ### Feature files
 
-A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
+A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
 
 ```gherkin
 # features/google-search.feature
@@ -44,7 +44,7 @@ Feature: Searching for vote cards app
 
 ### Step definitions
 
-Step definitions are the glue between features written in Gherkin and the actual system under test. They are written in JavaScript. Step definitions stored in ```features/step-definitions``` or ```./step-definitions``` are picked up automatically. If you use another location you must provide path via the ```--steps``` option listed above. 
+Step definitions are the glue between features files and the actual system under test. Step definitions are written in JavaScript and should be stored in either ```./features/step-definitions``` or ```./step-definitions``` folder. If you use a different location you must provide the path via the ```-s``` command line switch.
 
 ```javascript
 // step-definitions/google-search.js
@@ -75,7 +75,7 @@ module.exports = function () {
 The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
 
 | Variable | Description |
-| --- | --- |
+| :--- | :--- |
 | `driver`    | the [selenium driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Driver.html) object (_the current browser_) |
 | `selenium`  | the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) node module |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
@@ -87,6 +87,7 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 ## How to debug
 
+Selenium methods
 You can attach a ```.then``` function to any Selenium webdriver method and use it to insert a ```debugger``` statement, for example:
 
 ```js
@@ -109,7 +110,7 @@ module.exports = function () {
 
 ## Example
 
-Run the example above (_included in this project_) using the following command:
+You can run the example included in this project using the following command:
 
 ```bash
 node ./node_modules/selenium-cucumber-js/index.js
