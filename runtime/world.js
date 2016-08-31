@@ -18,7 +18,7 @@ var argv = require('yargs').argv,
 var DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
 //
-// create the selenium browser based on config passed in
+// create the selenium browser based on global var set in index.js
 //
 switch (browserName || '') {
 

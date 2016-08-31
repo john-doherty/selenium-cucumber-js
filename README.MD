@@ -29,7 +29,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 
 Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
 
-**IMPORTANT:** Feature files must live in a **features** folder within the root of your project (_a restriction imposed by cucumber-js_). Step definitions files can live anywhere you like.
+**IMPORTANT:** Feature files must live in a folder named **features** within the root of your project. Step definitions files can live anywhere you like.
 
 ```gherkin
 # features/google-search.feature
@@ -78,4 +78,26 @@ Run the example above (_included in this project_) using the following command:
 
 ```bash
 node ./node_modules/selenium-cucumber-js/index.js
+```
+
+## How to debug
+
+You can attach a ```.then``` function to any Selenium webdriver method and use it to insert a ```debugger``` statement, for example:
+
+```js
+module.exports = function () {
+
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+
+        driver.findElement(by.name('q')).then(function(input) {
+            expect(input).to.exist;
+            debugger; // <<- your IDE should step in at this point, with the browser open
+            return input;
+        })
+        .then(function(input){
+            input.sendKeys(searchQuery);
+            input.sendKeys(selenium.Key.ENTER);
+        });
+    });
+};
 ```
