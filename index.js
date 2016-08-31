@@ -5,7 +5,6 @@ var path = require('path'),
 program
   .version(pjson.version)
   .description(pjson.description)
-  .option('-f, --features <path>', 'path to feature files')
   .option('-s, --steps <path>', 'path to step definitions. defaults to ./step-definitions', './step-definitions')
   .option('-p, --pageObjects <path>', 'path to page objects')
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')

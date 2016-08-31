@@ -19,7 +19,6 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 ```bash
 -h, --help                output usage information
 -V, --version             output the version number
--f, --features <path>     path to feature files
 -s, --steps <path>        path to step definitions. defaults to ./step-definitions
 -p, --pageObjects <path>  path to page objects
 -b, --browser <path>      name of browser to use. defaults to chrome
@@ -28,7 +27,9 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 
 ### Feature file
 
-Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin)
+Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
+
+*IMPORTANT:* Feature files must live in a *features* folder within the root of your project (_a restriction imposed by cucumber-js_). Step definitions files can live anywhere you like.
 
 ```gherkin
 # features/google-search.feature
