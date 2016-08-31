@@ -1,6 +1,6 @@
 # selenium-cucumber-js
 
-A JavaScript BDD framework created using the official [selenium-webdriver](https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver) for JavaScript and [cucumber-js](https://github.com/cucumber/cucumber-js).
+A JavaScript BDD framework that uses the official [selenium-webdriver](https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver) for Node and [cucumber-js](https://github.com/cucumber/cucumber-js).
 
 ## Installation
 
