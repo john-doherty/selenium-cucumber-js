@@ -15,6 +15,10 @@
     "webdriver",
     "bdd"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/john-doherty/selenium-cucumber-js.git"
+  },
   "bugs": {
     "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
   },

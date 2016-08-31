@@ -25,11 +25,9 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -t, --tags <tagName>      name of tag to run
 ```
 
-### Feature file
+### Feature files
 
-Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
-
-**IMPORTANT:** Feature files must live in a folder named **features** within the root of your project. Step definitions files can live anywhere you like.
+A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
 
 ```gherkin
 # features/google-search.feature
@@ -44,7 +42,9 @@ Feature: Searching for vote cards app
     Then I should see some results
 ```
 
-### Step definition
+### Step definitions
+
+Step definitions are the glue between features written in Gherkin and the actual system under test. They are written in JavaScript. Step definitions stored in ```features/step-definitions``` or ```./step-definitions``` are picked up automatically. If you use another location you must provide path via the ```--steps``` option listed above. 
 
 ```javascript
 // step-definitions/google-search.js
@@ -72,13 +72,18 @@ module.exports = function () {
 };
 ```
 
-## Example
+The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
 
-Run the example above (_included in this project_) using the following command:
+| variable | description |
+|-|-|
+| `driver`    | the configured browser object |
+| `selenium`  | access to the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) object |
+| `by`        | access to the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class to locate elements on the page |
+| `until`     | |
+| `expect`    | |
+| `assert`    | |
+| `trace`     | |
 
-```bash
-node ./node_modules/selenium-cucumber-js/index.js
-```
 
 ## How to debug
 
@@ -100,4 +105,12 @@ module.exports = function () {
         });
     });
 };
+```
+
+## Example
+
+Run the example above (_included in this project_) using the following command:
+
+```bash
+node ./node_modules/selenium-cucumber-js/index.js
 ```
