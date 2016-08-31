@@ -29,7 +29,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 
 Features are written with the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
 
-*IMPORTANT:* Feature files must live in a *features* folder within the root of your project (_a restriction imposed by cucumber-js_). Step definitions files can live anywhere you like.
+**IMPORTANT:** Feature files must live in a **features** folder within the root of your project (_a restriction imposed by cucumber-js_). Step definitions files can live anywhere you like.
 
 ```gherkin
 # features/google-search.feature
