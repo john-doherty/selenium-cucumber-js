@@ -5,8 +5,7 @@
  * it is responsible for setting up and exposing the driver/browser/expect/assert etc required within each step definition
  */
 
-var argv = require('yargs').argv,
-    fs = require('fs'),
+var fs = require('fs'),
     requireDir = require('require-dir'),
     chalk = require('chalk'),
     selenium = require('selenium-webdriver'),
