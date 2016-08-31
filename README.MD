@@ -36,7 +36,7 @@ Feature: Searching for vote cards app
   As an internet user
   In order to find out more about the itunes vote cards app
   I want to be able to search for information about the itunes vote cards app
-  
+
   Scenario: Google search for vote cards app
     When I search Google for "itunes vote cards app"
     Then I should see some results
@@ -75,7 +75,7 @@ module.exports = function () {
 The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
 
 | Variable | Description |
-|-|-|
+| --- | --- |
 | `driver`    | the [selenium driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/ie_exports_Driver.html) object (_the current browser_) |
 | `selenium`  | the raw [selenium-webdriver](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) node module |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
