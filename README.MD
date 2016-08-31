@@ -163,3 +163,7 @@ This project includes an example feature file and step definition to help you ge
 ```bash
 node ./node_modules/selenium-cucumber-js/index.js
 ```
+
+## License
+
+[ISC License](LICENSE) &copy; 2016 [John Doherty](https://courseof.life/johndoherty)
