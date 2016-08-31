@@ -70,3 +70,11 @@ module.exports = function () {
     });
 };
 ```
+
+## Example
+
+Run the example above (_included in this project_) using the following command:
+
+```bash
+node ./node_modules/selenium-cucumber-js/index.js
+```
