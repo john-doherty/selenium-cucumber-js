@@ -44,7 +44,7 @@ Feature: Searching for vote cards app
 
 ### Step definitions
 
-Step definitions are the glue between features files and the actual system under test. Step definitions are written in JavaScript and should be stored in either ```./features/step-definitions``` or ```./step-definitions``` folder. If you use a different location you must provide the path via the ```-s``` command line switch.
+Step definitions act as the glue between features files and the actual system under test.
 
 ```javascript
 // ./step-definitions/google-search.js
@@ -88,7 +88,9 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 ### Page objects
 
-Page objects are accessible via the global ```page``` variable and are automatically loaded from ```./page-objects``` or the path specified using the ```-p``` switch. Page objects are exposed using the camel case version of their filename, for example ```./page-objects/google-search.js``` becomes ```page.googleSearch```. Page objects also have access to the same runtime variables described in step definitions section above.
+Page objects are accessible via a global ```page``` object and are automatically loaded from ```./page-objects``` _(or the path specified using the ```-p``` switch)_. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```page.googleSearch```.
+
+Page objects also have access to the same runtime variables available to step definitions.
 
 An example page object:
 
@@ -126,8 +128,9 @@ module.exports = function () {
 
 ### Shared objects
 
-Shared objects are the place to load any objects that need to be shared throughout the project but are not considered page objects, this could be a test variables or helper methods.
-Shared objects are accessible via the global ```shared``` variable and are automatically loaded from ```./shared-objects``` or the path specified using the ```-o``` switch. Shared objects are exposed using the camel case version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```. Like page objects, shared objects also have access to the same runtime variables available to step definitions.
+Shared objects allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./shared-objects``` _(or the path specified using the ```-o``` switch)_ and made available via a camel-cased version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```.
+
+Shared objects also have access to the same runtime variables available to step definitions.
 
 An example shared object:
 
@@ -166,7 +169,7 @@ You can register event handlers for the following events within the cucumber lif
 
 ## How to debug
 
-Selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that will be resolved when the method completes. This means you can assign a ```.then``` function and use it to trigger your debugger by inserting a ```debugger``` statement, for example:
+Most selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that is resolved when the method completes. The easiest way to step in with a debugger is to add a ```.then``` method to a selenium function and place a ```debugger``` statement within it, for example:
 
 ```js
 module.exports = function () {
@@ -184,6 +187,23 @@ module.exports = function () {
         });
     });
 };
+```
+
+## Default directory structure
+
+You can use the framework without any command line arguments if your application uses the following folder structure:
+
+```
+.
+├── features
+│   └── google-search.feature
+├── step-definitions
+│   └── google-search-steps.js
+├── page-objects
+│   └── google-search.js
+└── shared-objects
+    ├── test-data.js
+    └── stuff.json
 ```
 
 ## Demo

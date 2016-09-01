@@ -6,11 +6,13 @@ program
   .version(pjson.version)
   .description(pjson.description)
   .option('-s, --steps <path>', 'path to step definitions. defaults to ./step-definitions', './step-definitions')
-  .option('-p, --pageObjects <path>', 'path to page objects. defaults to ./page-objects', './page-objects')
+  .option('-p, --pageObjects [path]', 'path to page objects. defaults to ./page-objects', './page-objects')
   .option('-o, --sharedObjects <path>', 'path to shared objects. defaults to ./shared-objects', './shared-objects')
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .parse(process.argv);
+
+  [value]
 
 program.on('--help', function(){
     console.log('  For more details please visit https://github.com/john-doherty/selenium-cucumber-js#readme\n');
