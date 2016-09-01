@@ -126,13 +126,13 @@ module.exports = function () {
 
 ### Shared objects
 
-Shared objects is the place to load any objects that need to be shared throughout the project but are not considered page objects, this could be a test variables or helper methods.
+Shared objects are the place to load any objects that need to be shared throughout the project but are not considered page objects, this could be a test variables or helper methods.
 Shared objects are accessible via the global ```shared``` variable and are automatically loaded from ```./shared-objects``` or the path specified using the ```-o``` switch. Shared objects are exposed using the camel case version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```. Like page objects, shared objects also have access to the same runtime variables available to step definitions.
 
 An example shared object:
 
 ```javascript
-// ./page-objects/test-data.js
+// ./shared-objects/test-data.js
 
 module.exports = {
     username: "import-test-user",
