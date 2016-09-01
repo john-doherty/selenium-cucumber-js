@@ -5,7 +5,7 @@
  * it is responsible for setting up and exposing the driver/browser/expect/assert etc required within each step definition
  */
 
-var fs = require('fs'),
+var fs = require('fs-plus'),
     requireDir = require('require-dir'),
     chalk = require('chalk'),
     selenium = require('selenium-webdriver'),
@@ -89,7 +89,7 @@ function World() {
     });
 
     // import page objects (after global vars have been created)
-    if (global.pageObjects) {
+    if (global.pageObjects && fs.existsSync(global.pageObjects)) {
 
         // require all page objects using camelcase as object names
         runtime.page = requireDir(global.pageObjects, { camelcase: true });
@@ -102,7 +102,7 @@ function World() {
     };
 
     // import shared objects (after global vars have been created)
-    if (global.sharedObjects) {
+    if (global.sharedObjects && fs.existsSync(global.sharedObjects)) {
 
         // require all shared objects using camelcase as object names
         runtime.shared = requireDir(global.sharedObjects, { camelcase: true });
