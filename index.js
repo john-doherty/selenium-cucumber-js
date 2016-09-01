@@ -30,7 +30,7 @@ process.argv.splice(2, 100);
 
 // add cucumber world as first required script (this sets up the globals)
 process.argv.push('-r');
-process.argv.push(path.join(process.cwd(), 'runtime/world.js'));
+process.argv.push(path.join(__dirname, 'runtime/world.js'));
 
 // add path to import step definitions
 process.argv.push('-r');
