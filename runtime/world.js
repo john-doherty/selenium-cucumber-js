@@ -7,6 +7,7 @@
 
 var fs = require('fs-plus'),
     requireDir = require('require-dir'),
+    merge = require('merge'),
     chalk = require('chalk'),
     selenium = require('selenium-webdriver'),
     phantomjs = require('phantomjs'),
@@ -89,10 +90,10 @@ function World() {
     });
 
     // import page objects (after global vars have been created)
-    if (global.pageObjects && fs.existsSync(global.pageObjects)) {
+    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
         // require all page objects using camelcase as object names
-        runtime.page = requireDir(global.pageObjects, { camelcase: true });
+        runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
 
         // expose locally
         self.page = runtime.page;
@@ -101,17 +102,31 @@ function World() {
         global.page = runtime.page;
     };
 
-    // import shared objects (after global vars have been created)
-    if (global.sharedObjects && fs.existsSync(global.sharedObjects)) {
+    // import shared objects from multiple paths (after global vars have been created)
+    if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
 
-        // require all shared objects using camelcase as object names
-        runtime.shared = requireDir(global.sharedObjects, { camelcase: true });
+        var allDirs = {};
 
-        // expose locally
-        self.shared = runtime.shared;
+        // first require directories into objects by directory
+        global.sharedObjectPaths.forEach(function(itemPath){
 
-        // expose globally
-        global.shared = runtime.shared;
+            if (fs.existsSync(itemPath)){
+
+                var dir = requireDir(itemPath, { camelcase: true });
+
+                merge(allDirs, dir);
+            }
+        });
+
+        // if we managed to import some directories, expose them
+        if (Object.keys(allDirs).length > 0){
+
+            // expose locally
+            self.shared = allDirs;
+
+            // expose globally
+            global.shared = allDirs;
+        }
     };
 }
 
