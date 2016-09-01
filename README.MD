@@ -17,12 +17,13 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 ### Options
 
 ```bash
--h, --help                output usage information
--V, --version             output the version number
--s, --steps <path>        path to step definitions. defaults to ./step-definitions
--p, --pageObjects <path>  path to page objects. defaults to ./page-objects
--b, --browser <path>      name of browser to use. defaults to chrome
--t, --tags <tagName>      name of tag to run
+-h, --help                   output usage information
+-V, --version                output the version number
+-s, --steps <path>           path to step definitions. defaults to ./step-definitions
+-p, --pageObjects <path>     path to page objects. defaults to ./page-objects
+-o, --sharedObjects [paths]  path to shared objects (repeatable). defaults to ./shared-objects
+-b, --browser <path>         name of browser to use. defaults to chrome
+-t, --tags <tagName>         name of tag to run
 ```
 
 ### Feature files
