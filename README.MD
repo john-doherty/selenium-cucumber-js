@@ -78,7 +78,8 @@ The following variables are available within the ```Given()```, ```When()``` and
 | :--- | :--- |
 | `driver`    | an instance of [selenium web driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html) (_the browser_) |
 | `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods |
-| `page`      | page objects |
+| `page`      | collection of **page** objects loaded from disk and keyed by filename |
+| `shared`    | collection of **shared** objects loaded from disk and keyed by filename |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
 | `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
 | `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
@@ -119,6 +120,35 @@ module.exports = function () {
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
         page.googleSearch.preformSearch(searchQuery);
+    });
+};
+```
+
+### Shared objects
+
+Shared objects is the place to load any objects that need to be shared throughout the project but are not considered page objects, this could be a test variables or helper methods.
+Shared objects are accessible via the global ```shared``` variable and are automatically loaded from ```./shared-objects``` or the path specified using the ```-o``` switch. Shared objects are exposed using the camel case version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```. Like page objects, shared objects also have access to the same runtime variables available to step definitions.
+
+An example shared object:
+
+```javascript
+// ./page-objects/test-data.js
+
+module.exports = {
+    username: "import-test-user",
+    password: "import-test-pa**word"
+}
+```
+
+And its usage within a step definition:
+
+```js
+module.exports = function () {
+
+    this.Given(/^I am logged in"$/, function () {
+
+        driver.findElement(by.name('usn')).sendKeys(shared.testData.username);
+        driver.findElement(by.name('pass')).sendKeys(shared.testData.password);
     });
 };
 ```

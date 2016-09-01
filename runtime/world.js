@@ -73,7 +73,9 @@ function World() {
         until: selenium.until,  // provide easy access to selenium until methods
         expect: expect,         // expose chai expect to allow variable testing
         assert: assert,         // expose chai assert to allow variable testing
-        trace: consoleInfo       // expose an info method to log output to the console in a readable/visible format
+        trace: consoleInfo,     // expose an info method to log output to the console in a readable/visible format
+        page: {},               // empty page objects placeholder
+        shared: {}              // empty shared objects placeholder
     };
 
     // expose properties to step definition methods 
@@ -97,6 +99,19 @@ function World() {
 
         // expose globally
         global.page = runtime.page;
+    };
+
+    // import shared objects (after global vars have been created)
+    if (global.sharedObjects) {
+
+        // require all shared objects using camelcase as object names
+        runtime.shared = requireDir(global.sharedObjects, { camelcase: true });
+
+        // expose locally
+        self.shared = runtime.shared;
+
+        // expose globally
+        global.shared = runtime.shared;
     };
 }
 
