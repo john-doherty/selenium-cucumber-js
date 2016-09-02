@@ -43,6 +43,8 @@ Feature: Searching for vote cards app
     Then I should see some results
 ```
 
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser enviroment.
+
 ### Step definitions
 
 Step definitions act as the glue between features files and the actual system under test.
