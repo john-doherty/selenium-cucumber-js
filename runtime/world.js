@@ -140,16 +140,18 @@ module.exports = function () {
 
     this.World = World;
 
-    // create the driver
-    this.Before(function() {
+    // create the driver before scenario if it's not instantiated
+    this.Before(function (scenario) {
 
         if (!driver || !this.driver) {
             this.driver = global.driver = getDriverInstance();
         }
+
+        driver.manage().window().maximize();
     });
 
-    // close the browser after each scenario
-    this.registerHandler('AfterScenario', function (scenario) {
+    // close the browser after each scenario to ensure a fresh enviroment for the next scenario
+    this.After(function (scenario) {
         return driver.close();
     });
 };
