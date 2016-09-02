@@ -18,41 +18,46 @@ var fs = require('fs-plus'),
 
 var DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
-//
-// create the selenium browser based on global var set in index.js
-//
-switch (browserName || '') {
+/**
+ * create the selenium browser based on global var set in index.js
+ */
+function getDriverInstance() {
 
-    case 'firefox': {
+    switch (browserName || '') {
 
-        driver = new selenium.Builder().withCapabilities(selenium.Capabilities.firefox()).build();
-    } break;
+        case 'firefox': {
 
-    case 'phantomjs': {
+            driver = new selenium.Builder().withCapabilities(selenium.Capabilities.firefox()).build();
+        } break;
 
-        driver = new selenium.Builder().withCapabilities({
-            browserName: 'phantomjs',
-            javascriptEnabled: true,
-            acceptSslCerts: true,
-            'phantomjs.binary.path': phantomjs.path
-        }).build();
+        case 'phantomjs': {
 
-    } break;
+            driver = new selenium.Builder().withCapabilities({
+                browserName: 'phantomjs',
+                javascriptEnabled: true,
+                acceptSslCerts: true,
+                'phantomjs.binary.path': phantomjs.path
+            }).build();
 
-    // default to chrome
-    default: {
+        } break;
 
-        driver = new selenium.Builder().withCapabilities({
-            browserName: 'chrome',
-            javascriptEnabled: true,
-            acceptSslCerts: true,
-            chromeOptions: {
-                "args": ["start-maximized"]
-            },
-            path: chromedriver.path
-        }).build();
-    }
-};
+        // default to chrome
+        default: {
+
+            driver = new selenium.Builder().withCapabilities({
+                browserName: 'chrome',
+                javascriptEnabled: true,
+                acceptSslCerts: true,
+                chromeOptions: {
+                    "args": ["start-maximized"]
+                },
+                path: chromedriver.path
+            }).build();
+        }
+    };
+
+    return driver;
+}
 
 function consoleInfo(){
     var args = [].slice.call(arguments),
@@ -67,7 +72,7 @@ function World() {
 
     // create a list of properties to expose within each step definition (and globally for readability)
     var runtime = {
-        driver: driver,         // the browser object
+        driver: null,           // the browser object
         selenium: selenium,     // the raw nodejs selenium driver
         By: selenium.By,        // in keeping with Java expose selenium By 
         by: selenium.By,        // provide a javascript lowercase version
@@ -132,5 +137,19 @@ function World() {
 
 // export the "World" required by cucubmer to allow it to expose methods within step def's
 module.exports = function () {
+
     this.World = World;
+
+    // create the driver
+    this.Before(function() {
+
+        if (!driver || !this.driver) {
+            this.driver = global.driver = getDriverInstance();
+        }
+    });
+
+    // close the browser after each scenario
+    this.registerHandler('AfterScenario', function (scenario) {
+        return driver.close();
+    });
 };

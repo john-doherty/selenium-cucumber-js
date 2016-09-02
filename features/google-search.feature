@@ -6,3 +6,7 @@ Feature: Searching for vote cards app
   Scenario: Google search for vote cards app
     When I search Google for "itunes vote cards app"
     Then I should see some results
+
+  Scenario: Google search for workwear
+    When I search Google for "workwear"
+    Then I should see some results
