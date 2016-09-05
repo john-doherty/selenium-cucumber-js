@@ -26,6 +26,14 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -t, --tags <tagName>         name of tag to run
 ```
 
+By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
+
+| Browser | Example |
+| :--- | :--- |
+| Chrome | `-b chrome` |
+| Firefox | `-b firefox` |
+| Phantom JS | `-b phantomjs` |
+
 ### Feature files
 
 A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
@@ -43,7 +51,7 @@ Feature: Searching for vote cards app
     Then I should see some results
 ```
 
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser enviroment.
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment.
 
 ### Step definitions
 

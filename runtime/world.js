@@ -12,9 +12,9 @@ var fs = require('fs-plus'),
     selenium = require('selenium-webdriver'),
     phantomjs = require('phantomjs'),
     chromedriver = require('chromedriver'),
+    firefox = require('geckodriver'),
     expect = require('chai').expect,
-    assert = require("chai").assert,
-    driver = null;
+    assert = require("chai").assert;
 
 var DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
@@ -27,7 +27,13 @@ function getDriverInstance() {
 
         case 'firefox': {
 
-            driver = new selenium.Builder().withCapabilities(selenium.Capabilities.firefox()).build();
+            driver = new selenium.Builder().withCapabilities({
+                browserName: 'firefox',
+                javascriptEnabled: true,
+                acceptSslCerts: true,
+                'webdriver.firefox.bin': firefox.path
+            }).build();
+
         } break;
 
         case 'phantomjs': {
@@ -152,6 +158,10 @@ module.exports = function () {
 
     // close the browser after each scenario to ensure a fresh enviroment for the next scenario
     this.After(function (scenario) {
-        return driver.close();
+
+        if (!scenario.isFailed()) {
+            driver.close();
+            return driver.quit();
+        }
     });
 };
