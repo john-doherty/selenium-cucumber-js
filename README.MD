@@ -225,6 +225,10 @@ This project includes an example feature file and step definition to help you ge
 node ./node_modules/selenium-cucumber-js/index.js
 ```
 
+## Bugs
+
+Please raise bugs via [Github’s Issue Tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and provide enough information to allow the bug to be reproduced.
+
 ## License
 
 [ISC License](LICENSE) &copy; 2016 [John Doherty](https://courseof.life/johndoherty)
