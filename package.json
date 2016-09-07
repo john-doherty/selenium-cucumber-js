@@ -17,6 +17,7 @@
     "selenium-webdriver",
     "chromedriver",
     "phantomjs",
+    "testing",
     "bdd"
   ],
   "repository": {
