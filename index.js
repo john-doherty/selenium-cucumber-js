@@ -1,6 +1,9 @@
+'use strict';
+
 var path = require('path'),
     program = require('commander'),
-    pjson = require('./package.json');
+    pjson = require('./package.json'),
+    Cucumber = require('cucumber');
 
 function collectPaths(value, paths) {
   paths.push(value);
@@ -49,9 +52,22 @@ if (program.tags) {
     process.argv.push(program.tags);
 }
 
-if (process.platform === 'win32') {
-    require('./node_modules/.bin/cucumber-js');
-}
-else {
-    require('./node_modules/.bin/cucumber.js');
-}
+//
+// execute cucumber
+//
+var cucumberCli = Cucumber.Cli(process.argv);
+
+cucumberCli.run(function (succeeded) {
+  var code = succeeded ? 0 : 1;
+
+  function exitNow() {
+    process.exit(code);
+  }
+
+  if (process.stdout.write('')) {
+    exitNow();
+  } else {
+    // write() returned false, kernel buffer is not empty yet...
+    process.stdout.on('drain', exitNow);
+  }
+});
