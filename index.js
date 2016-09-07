@@ -3,7 +3,7 @@
 var path = require('path'),
     program = require('commander'),
     pjson = require('./package.json'),
-    Cucumber = require('cucumber');
+    cucumber = require('cucumber');
 
 function collectPaths(value, paths) {
   paths.push(value);
@@ -40,11 +40,11 @@ process.argv.splice(2, 100);
 
 // add cucumber world as first required script (this sets up the globals)
 process.argv.push('-r');
-process.argv.push(path.join(__dirname, 'runtime/world.js'));
+process.argv.push(path.resolve(__dirname, 'runtime/world.js'));
 
 // add path to import step definitions
 process.argv.push('-r');
-process.argv.push(program.steps);
+process.argv.push(path.resolve(program.steps));
 
 // add tag
 if (program.tags) {
@@ -55,7 +55,7 @@ if (program.tags) {
 //
 // execute cucumber
 //
-var cucumberCli = Cucumber.Cli(process.argv);
+var cucumberCli = cucumber.Cli(process.argv);
 
 cucumberCli.run(function (succeeded) {
   var code = succeeded ? 0 : 1;
