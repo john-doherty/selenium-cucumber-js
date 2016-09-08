@@ -17,6 +17,7 @@ program
   .option('-p, --pageObjects <path>', 'path to page objects. defaults to ./page-objects', './page-objects')
   .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ./shared-objects', collectPaths, ['./shared-objects'])
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
+  .option('-r, --reports <path>', 'output path to save reports. defaults to ./reports', './reports')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .parse(process.argv);
 
@@ -30,6 +31,9 @@ global.browserName = program.browser;
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(program.pageObjects);
 
+// used within world.js to output reports
+global.reportsPath = path.resolve(program.reports);
+
 // used within world.js to import shared objects into the shared namespace
 global.sharedObjectPaths = program.sharedObjects.map(function(item){
     return path.resolve(item);
@@ -37,6 +41,12 @@ global.sharedObjectPaths = program.sharedObjects.map(function(item){
 
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);
+
+// add switch to tell cucumber to produce json report files
+process.argv.push('-f');
+process.argv.push('pretty');
+process.argv.push('-f');
+process.argv.push('json:' + path.resolve(__dirname, global.reportsPath, 'cucumber-report.json'));
 
 // add cucumber world as first required script (this sets up the globals)
 process.argv.push('-r');

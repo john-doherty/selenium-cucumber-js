@@ -6,6 +6,7 @@
  */
 
 var fs = require('fs-plus'),
+    path = require('path'),
     requireDir = require('require-dir'),
     merge = require('merge'),
     chalk = require('chalk'),
@@ -14,7 +15,8 @@ var fs = require('fs-plus'),
     chromedriver = require('chromedriver'),
     firefox = require('geckodriver'),
     expect = require('chai').expect,
-    assert = require("chai").assert;
+    assert = require("chai").assert,
+    reporter = require('cucumber-html-reporter');
 
 var DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
@@ -139,6 +141,7 @@ function World() {
             global.shared = allDirs;
         }
     };
+
 }
 
 // export the "World" required by cucubmer to allow it to expose methods within step def's
@@ -154,6 +157,25 @@ module.exports = function () {
         }
 
         driver.manage().window().maximize();
+    });
+
+    this.registerHandler('AfterFeatures', function (features, done) {
+
+        if (global.reportsPath && fs.existsSync(global.reportsPath)) {
+
+            var reportOptions = {
+                theme: 'bootstrap',
+                jsonFile: path.resolve(global.reportsPath, 'cucumber-report.json'),
+                output: path.resolve(global.reportsPath, 'cucumber-report.html'),
+                reportSuiteAsScenarios: true,
+                launchReport: true,
+                ignoreBadJsonFile: true
+            };
+
+            reporter.generate(reportOptions);
+        }
+
+        done();
     });
 
     // close the browser after each scenario to ensure a fresh enviroment for the next scenario

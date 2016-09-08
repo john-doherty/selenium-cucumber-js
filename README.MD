@@ -23,6 +23,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -p, --pageObjects <path>     path to page objects. defaults to ./page-objects
 -o, --sharedObjects [paths]  path to shared objects (repeatable). defaults to ./shared-objects
 -b, --browser <path>         name of browser to use. defaults to chrome
+-r, --reports <path>         output path to save reports. defaults to ./reports
 -t, --tags <tagName>         name of tag to run
 ```
 
@@ -167,6 +168,12 @@ module.exports = function () {
 };
 ```
 
+### Reports
+
+HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
+
+![Cucumber HTML report](img/cucumber-html-report.png)
+
 ### Event handlers
 
 You can register event handlers for the following events within the cucumber lifecycle.
@@ -213,8 +220,11 @@ You can use the framework without any command line arguments if your application
 ├── page-objects
 │   └── google-search.js
 └── shared-objects
-    ├── test-data.js
-    └── stuff.json
+│   ├── test-data.js
+│   └── stuff.json
+└── reports
+    ├── cucumber-report.json
+    └── cucumber-report.html
 ```
 
 ## Demo

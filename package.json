@@ -34,6 +34,7 @@
     "chromedriver": "^2.23.1",
     "commander": "^2.9.0",
     "cucumber": "^1.2.2",
+    "cucumber-html-reporter": "^0.2.8",
     "fs-plus": "^2.9.1",
     "geckodriver": "^1.1.2",
     "merge": "^1.2.0",
