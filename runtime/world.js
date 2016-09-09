@@ -149,6 +149,9 @@ module.exports = function () {
 
     this.World = World;
 
+    // set the default timeout for all tests
+    this.setDefaultTimeout(DEFAULT_TIMEOUT);
+
     // create the driver before scenario if it's not instantiated
     this.Before(function (scenario) {
 
