@@ -1,6 +1,6 @@
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
 
         driver.get('http://www.google.com');
         
@@ -11,14 +11,17 @@ module.exports = function () {
 
         // page object example
         //page.search.preformSearch(searchQuery);
+
+        done();
     });
 
-    this.Then(/^I should see some results$/, function () {
+    this.Then(/^I should see some results$/, function (done) {
 
         driver.wait(until.elementsLocated(by.css('div.g')), 10000);
 
-        return driver.findElements(by.css('div.g')).then(function (elements) {
+        driver.findElements(by.css('div.g')).then(function (elements) {
             expect(elements.length).to.not.equal(0);
+            done();
         });
     });
 };
