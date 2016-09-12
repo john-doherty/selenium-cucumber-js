@@ -58,6 +58,8 @@ The browser automatically closes after each scenario to ensure the next scenario
 
 Step definitions act as the glue between features files and the actual system under test.
 
+_To avoid confusion **always** call the callback/done method within your step definition to let cucumber know when you're done._
+
 ```javascript
 // ./step-definitions/google-search.js
 
@@ -72,8 +74,7 @@ module.exports = function () {
         input.sendKeys(searchQuery);
         input.sendKeys(selenium.Key.ENTER);
 
-        // don't forget to tell Cucumber when you're done:
-        done();
+        done(); // <<- let cucumber know you're done
     });
 
     this.Then(/^I should see some results$/, function (done) {
@@ -83,8 +84,7 @@ module.exports = function () {
         driver.findElements(by.css('div.g')).then(function (elements) {
             expect(elements.length).to.not.equal(0);
 
-            // don't forget to tell Cucumber when you're done:
-            done();
+            done(); // <<- let cucumber know you're done
         });
     });
 };
@@ -103,6 +103,8 @@ The following variables are available within the ```Given()```, ```When()``` and
 | `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
 | `assert`    | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
 | `trace`     | handy trace method to log console output with increased visibility |
+
+
 
 ### Page objects
 
@@ -141,8 +143,7 @@ module.exports = function () {
 
         page.googleSearch.preformSearch(searchQuery);
 
-        // don't forget to tell Cucumber when you're done:
-        done();
+        done(); // <<- let cucumber know you're done
     });
 };
 ```
@@ -212,8 +213,7 @@ module.exports = function () {
             input.sendKeys(searchQuery);
             input.sendKeys(selenium.Key.ENTER);
 
-            // don't forget to tell Cucumber when you're done:
-            done();
+            done(); // <<- let cucumber know you're done
         });
     });
 };
