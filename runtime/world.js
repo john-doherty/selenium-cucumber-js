@@ -67,7 +67,7 @@ function getDriverInstance() {
     return driver;
 }
 
-function consoleInfo(){
+function consoleInfo() {
     var args = [].slice.call(arguments),
         output = chalk.bgBlue.white('\n>>>>> \n' + args + '\n<<<<<\n');
 
@@ -93,7 +93,7 @@ function World() {
     };
 
     // expose properties to step definition methods 
-    Object.keys(runtime).forEach(function(key) {
+    Object.keys(runtime).forEach(function (key) {
 
         // make var avaliable within step def via this.key
         self[key] = runtime[key];
@@ -121,9 +121,9 @@ function World() {
         var allDirs = {};
 
         // first require directories into objects by directory
-        global.sharedObjectPaths.forEach(function(itemPath){
+        global.sharedObjectPaths.forEach(function (itemPath) {
 
-            if (fs.existsSync(itemPath)){
+            if (fs.existsSync(itemPath)) {
 
                 var dir = requireDir(itemPath, { camelcase: true });
 
@@ -132,7 +132,7 @@ function World() {
         });
 
         // if we managed to import some directories, expose them
-        if (Object.keys(allDirs).length > 0){
+        if (Object.keys(allDirs).length > 0) {
 
             // expose locally
             self.shared = allDirs;
@@ -181,12 +181,23 @@ module.exports = function () {
         done();
     });
 
-    // close the browser after each scenario to ensure a fresh enviroment for the next scenario
-    this.After(function (scenario) {
+    // executed after each scenario
+    this.After(function (scenario, done) {
 
-        if (!scenario.isFailed()) {
+        if (scenario.isFailed()) {
+
+            // add a screenshot to the error report
+            driver.takeScreenshot().then(function (screenShot) {
+                scenario.attach(new Buffer(screenShot, 'base64'), 'image/png', done);
+            });
+
+            // test failed, dont close the browser
+        }
+        else {
+            // if the test passed close the browser to ensure a fresh enviroment for the next scenario
             driver.close();
-            return driver.quit();
+            driver.quit();
+            done();
         }
     });
 };
