@@ -171,13 +171,14 @@ module.exports = function () {
     });
 
     // executed after each scenario
-    this.After(function (scenario) {
+    this.After(function (scenario, done) {
 
         if (scenario.isFailed()) {
 
             // add a screenshot to the error report
-            return driver.takeScreenshot().then(function (screenShot) {
+            driver.takeScreenshot().then(function (screenShot) {
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+                done();
             });
 
             // test failed, dont close the browser
@@ -185,7 +186,7 @@ module.exports = function () {
         else {
             // if the test passed close the browser to ensure a fresh enviroment for the next scenario
             driver.close();
-            return driver.quit();
+            driver.quit().then(done);
         }
     });
 };
