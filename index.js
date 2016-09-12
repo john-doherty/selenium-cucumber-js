@@ -62,6 +62,9 @@ if (program.tags) {
     process.argv.push(program.tags);
 }
 
+// add strict option (fail if there are any undefined or pending steps)
+process.argv.push('-S');
+
 //
 // execute cucumber
 //
