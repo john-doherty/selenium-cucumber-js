@@ -76,9 +76,7 @@ function consoleInfo() {
 
 function World() {
 
-    var self = this;
-
-    // create a list of properties to expose within each step definition (and globally for readability)
+    // create a list of variables to expose globally and therefore accessible within each step definition
     var runtime = {
         driver: null,           // the browser object
         selenium: selenium,     // the raw nodejs selenium driver
@@ -92,11 +90,8 @@ function World() {
         shared: {}              // empty shared objects placeholder
     };
 
-    // expose properties to step definition methods 
+    // expose properties to step definition methods via global variables
     Object.keys(runtime).forEach(function (key) {
-
-        // make var avaliable within step def via this.key
-        self[key] = runtime[key];
 
         // make property/method avaiable as a global (no this. prefix required)
         global[key] = runtime[key];
@@ -107,9 +102,6 @@ function World() {
 
         // require all page objects using camelcase as object names
         runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
-
-        // expose locally
-        self.page = runtime.page;
 
         // expose globally
         global.page = runtime.page;
@@ -134,9 +126,6 @@ function World() {
         // if we managed to import some directories, expose them
         if (Object.keys(allDirs).length > 0) {
 
-            // expose locally
-            self.shared = allDirs;
-
             // expose globally
             global.shared = allDirs;
         }
@@ -153,10 +142,10 @@ module.exports = function () {
     this.setDefaultTimeout(DEFAULT_TIMEOUT);
 
     // create the driver before scenario if it's not instantiated
-    this.Before(function (scenario) {
+    this.registerHandler('BeforeScenario', function(scenario) {
 
-        if (!driver || !this.driver) {
-            this.driver = global.driver = getDriverInstance();
+        if (!global.driver) {
+            global.driver = getDriverInstance();
         }
 
         driver.manage().window().maximize();
@@ -188,7 +177,7 @@ module.exports = function () {
 
             // add a screenshot to the error report
             return driver.takeScreenshot().then(function (screenShot) {
-                return scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+                scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
             });
 
             // test failed, dont close the browser

@@ -63,7 +63,7 @@ Step definitions act as the glue between features files and the actual system un
 
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
 
         driver.get('http://www.google.com');
 
@@ -71,14 +71,20 @@ module.exports = function () {
 
         input.sendKeys(searchQuery);
         input.sendKeys(selenium.Key.ENTER);
+
+        // don't forget to tell Cucumber when you're done:
+        done();
     });
 
-    this.Then(/^I should see some results$/, function () {
+    this.Then(/^I should see some results$/, function (done) {
 
         driver.wait(until.elementsLocated(by.css('div.g')), 10000);
 
-        return driver.findElements(by.css('div.g')).then(function (elements) {
+        driver.findElements(by.css('div.g')).then(function (elements) {
             expect(elements.length).to.not.equal(0);
+
+            // don't forget to tell Cucumber when you're done:
+            done();
         });
     });
 };
@@ -131,9 +137,12 @@ And its usage within a step definition:
 ```js
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
 
         page.googleSearch.preformSearch(searchQuery);
+
+        // don't forget to tell Cucumber when you're done:
+        done();
     });
 };
 ```
@@ -192,7 +201,7 @@ Most selenium methods return a [JavaScript Promise](https://spring.io/understand
 ```js
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
 
         driver.findElement(by.name('q')).then(function(input) {
             expect(input).to.exist;
@@ -202,6 +211,9 @@ module.exports = function () {
         .then(function(input){
             input.sendKeys(searchQuery);
             input.sendKeys(selenium.Key.ENTER);
+
+            // don't forget to tell Cucumber when you're done:
+            done();
         });
     });
 };

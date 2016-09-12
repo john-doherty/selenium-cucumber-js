@@ -70,6 +70,8 @@ process.argv.push('-S');
 //
 var cucumberCli = cucumber.Cli(process.argv);
 
+global.cucumber = cucumber;
+
 cucumberCli.run(function (succeeded) {
   var code = succeeded ? 0 : 1;
 
