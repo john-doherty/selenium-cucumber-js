@@ -1,9 +1,5 @@
 module.exports = function () {
 
-    var self = this;
-
-    
-
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
 
         driver.get('http://www.google.com');
@@ -12,9 +8,6 @@ module.exports = function () {
         
         input.sendKeys(searchQuery);
         input.sendKeys(selenium.Key.ENTER);
-
-        // page object example
-        //page.search.preformSearch(searchQuery);
 
         done();
     });
