@@ -1,3 +1,5 @@
+[![stats](https://nodei.co/npm/selenium-cucumber-js.png?downloads=true)](https://www.npmjs.com/package/selenium-cucumber-js)
+
 # selenium-cucumber-js
 
 A debuggable JS BDD framework that uses the official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") for Node and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
