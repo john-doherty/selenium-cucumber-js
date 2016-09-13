@@ -250,13 +250,13 @@ node ./node_modules/selenium-cucumber-js/index.js
 
 ## Bugs
 
-Please raise bugs via [Github’s Issue Tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and provide enough information to allow the bug to be reproduced.
+Please raise bugs via the [selenium-cucumber-js issue tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and, if possible, please provide enough information to allow the bug to be reproduced.
 
 ## Troubleshooting
 
 ### IntelliJ Cucumber Plugin
 
-IntelliJ based IDE's have a plugin that allows the tester to control click on a `Given`, `When`, `Then` statement within a Cucumber feature file and have the user taken to associated step definition. This plugin relies on your project having the following folder structure:
+IntelliJ based IDE's have a plugin that allows the tester to control click on a `Given`, `When`, `Then` statement within a Cucumber feature file and have the user taken to the associated step definition. This plugin relies on your project having the following folder structure:
 
 ```
 .
