@@ -252,6 +252,34 @@ node ./node_modules/selenium-cucumber-js/index.js
 
 Please raise bugs via [Github’s Issue Tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and provide enough information to allow the bug to be reproduced.
 
+## Troubleshooting
+
+### IntelliJ Cucumber Plugin
+
+IntelliJ based IDE's have a plugin that allows the tester to control click on a `Given`, `When`, `Then` statement within a Cucumber feature file and have the user taken to associated step definition. This plugin relies on your project having the following folder structure:
+
+```
+.
+└── features
+   │   google-search.feature
+   └── step_definitions
+   │   └── google-search-steps.js
+   └── page_objects
+   │   └── google-search.js
+   └── shared_objects
+   │   ├── test-data.js
+   │   └── stuff.json
+   └── reports
+       ├── cucumber-report.json
+       └── cucumber-report.html
+```
+
+This can be achieved by restructuring your project to match the layout above _(notice the underscores)_, and running your tests with the following switches:
+
+```bash
+node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions -p ./features/page_objects -o ./features/shared_objects -r ./features/reports
+```
+
 ## License
 
 [ISC License](LICENSE) &copy; 2016 [John Doherty](https://courseof.life/johndoherty)
