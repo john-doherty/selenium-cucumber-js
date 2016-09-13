@@ -18,7 +18,7 @@ var fs = require('fs-plus'),
     assert = require("chai").assert,
     reporter = require('cucumber-html-reporter');
 
-var DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
+global.DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
 /**
  * create the selenium browser based on global var set in index.js
@@ -131,6 +131,8 @@ function World() {
         }
     };
 
+    // add helpers
+    global.helpers = require('../runtime/helpers.js');
 }
 
 // export the "World" required by cucubmer to allow it to expose methods within step def's

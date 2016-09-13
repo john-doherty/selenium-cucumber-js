@@ -98,6 +98,7 @@ The following variables are available within the ```Given()```, ```When()``` and
 | `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods |
 | `page`      | collection of **page** objects loaded from disk and keyed by filename |
 | `shared`    | collection of **shared** objects loaded from disk and keyed by filename |
+| `helpers`   | a collection of helper methods _things selenium does not provide but really should!_ |
 | `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
 | `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
 | `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
