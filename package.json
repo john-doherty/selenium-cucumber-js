@@ -1,12 +1,16 @@
 {
   "name": "selenium-cucumber-js",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A debuggable JS BDD framework that uses the official selenium-webdriver for Node and cucumber-js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "John Doherty <contact@johndoherty.info> (https://courseof.life/johndoherty)",
+  "author": { 
+    "name" : "John Doherty", 
+    "email" : "contact@johndoherty.info", 
+    "url" : "https://courseof.life/johndoherty"
+  },
   "license": "ISC",
   "keywords": [
     "selenium",
@@ -27,6 +31,9 @@
   "bugs": {
     "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
   },
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
   "dependencies": {
     "chai": "^3.5.0",
@@ -40,6 +47,6 @@
     "merge": "^1.2.0",
     "phantomjs-prebuilt": "^2.1.12",
     "require-dir": "^0.3.0",
-    "selenium-webdriver": "^2.53.1"
+    "selenium-webdriver": "^3.0.0"
   }
 }
