@@ -1,0 +1,35 @@
+language: node_js
+
+node_js:
+  - 6.9.0
+
+env:
+  global:
+    - CHROME_VERSION=google-chrome-stable
+    - DBUS_SESSION_BUS_ADDRESS=/dev/null
+    - NODE_ENV=test
+
+build:
+  pre_ci:
+    - sudo apt-get update
+    - sudo apt-get install curl
+    # install chrome browser required for selenium tests
+    - curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
+    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+    - sudo apt-get update -qqy
+    - sudo apt-get -qqy install ${CHROME_VERSION:-google-chrome-stable}
+    # install ruby required to install cf cli 
+    - sudo apt-get --assume-yes install ruby
+    - sudo gem install bundler
+    - curl -O https://s3.amazonaws.com/go-cli/releases/v6.17.1/cf-cli-installer_6.17.1_x86-64.deb
+    - dpkg -i cf-cli-installer_6.17.1_x86-64.deb
+
+  pre_ci_boot:
+    options: "--privileged=false --net=bridge"
+
+  ci:
+    - sudo apt-get install xvfb
+    - export DISPLAY=:99.0
+    - mkdir -p shippable/buildoutput
+    - shippable_retry npm install
+    - shippable_retry xvfb-run --server-args="-ac" node index.js
