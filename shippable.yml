@@ -3,8 +3,8 @@ language: node_js
 node_js:
   - 6.9.0
 
-addons:
-    firefox: "49.0"
+# addons:
+#     firefox: "49.0"
 
 env:
   global:
@@ -16,6 +16,11 @@ build:
   pre_ci:
     - sudo apt-get update
     - sudo apt-get install curl
+    # Firefox
+    - "sudo wget \"https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$firefox/linux-x86_64/en-US/firefox-$firefox.tar.bz2\""
+    - sudo tar -xjvf firefox-$firefox.tar.bz2
+    - sudo ln -sf /usr/lib/firefox/firefox /usr/bin/firefox
+    - export PATH=$PATH:/usr/bin/firefox/firefox
     # install chrome browser required for selenium tests
     # - curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
     # - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
