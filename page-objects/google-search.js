@@ -9,8 +9,8 @@ module.exports = {
 
     preformSearch: function (keywords) {
 
-        var el = page.googleSearch.elements.searchInput;
+        var selector = page.googleSearch.elements.searchInput;
 
-        return driver.findElement(el).sendKeys(keywords, selenium.Key.ENTER);
+        return driver.findElement(selector).sendKeys(keywords, selenium.Key.ENTER);
     }
 };

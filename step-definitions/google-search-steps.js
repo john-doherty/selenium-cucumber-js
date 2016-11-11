@@ -3,11 +3,8 @@ module.exports = function () {
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
         return driver.get('http://www.google.com').then(function(){
-            return driver.findElement(by.name('q'));
+            return page.googleSearch.preformSearch(searchQuery);
         })
-        .then(function(el){
-            return el.sendKeys(searchQuery + selenium.Key.ENTER);
-        });
     });
 
     this.Then(/^I should see some results$/, function () {
