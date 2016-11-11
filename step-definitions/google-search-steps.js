@@ -1,24 +1,22 @@
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
+    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
-        driver.get('http://www.google.com');
-        
-        var input = driver.findElement(by.name('q'));
-        
-        input.sendKeys(searchQuery);
-        input.sendKeys(selenium.Key.ENTER);
-
-        done();
+        return driver.get('http://www.google.com').then(function(){
+            return driver.findElement(by.name('q'));
+        })
+        .then(function(el){
+            return el.sendKeys(searchQuery + selenium.Key.ENTER);
+        });
     });
 
-    this.Then(/^I should see some results$/, function (done) {
+    this.Then(/^I should see some results$/, function () {
 
-        driver.wait(until.elementsLocated(by.css('div.g')), 10000);
-
-        driver.findElements(by.css('div.g')).then(function (elements) {
+        return driver.wait(until.elementsLocated(by.css('div.g')), 10000).then(function(){
+            return driver.findElements(by.css('div.g'));
+        })
+        .then(function (elements) {
             expect(elements.length).to.not.equal(0);
-            done();
-        });
+        });        
     });
 };

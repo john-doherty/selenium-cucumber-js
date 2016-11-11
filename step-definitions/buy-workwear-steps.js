@@ -1,33 +1,25 @@
 module.exports = function () {
 
-    this.Given(/^I am on the Mammoth Workwear home page$/, function (done) {
+    this.Given(/^I am on the Mammoth Workwear home page$/, function () {
 
         // load google
-        helpers.loadPage(page.mammothWorkwear.url).then(function(){
-            done();
-        });
+        return helpers.loadPage(page.mammothWorkwear.url);
     });
 
-    this.When(/^I click navigation item "([^"]*)"$/, function (linkTitle, done) {
+    this.When(/^I click navigation item "([^"]*)"$/, function (linkTitle) {
 
         // click an item in the search results via the google page object
-        page.mammothWorkwear.clickNavigationItem(linkTitle).then(function(){
-            done();
-        });
+        return page.mammothWorkwear.clickNavigationItem(linkTitle);
     });
 
-    this.Then(/^I click product item "([^"]*)"$/, function (productTitle, done) {
+    this.Then(/^I click product item "([^"]*)"$/, function (productTitle) {
 
         // click an item in the search results via the google page object
-        page.mammothWorkwear.clickProductItem(productTitle).then(function(){
-            done();
-        });
+        return page.mammothWorkwear.clickProductItem(productTitle);
     });
 
-    this.Then(/^I should see product detail with title "([^"]*)"$/, function (pageTitle, done) {
+    this.Then(/^I should see product detail with title "([^"]*)"$/, function (pageTitle) {
 
-        page.mammothWorkwear.titleContains(pageTitle).then(function(){
-            done();
-        });
+        return page.mammothWorkwear.titleContains(pageTitle);
     });
 };
