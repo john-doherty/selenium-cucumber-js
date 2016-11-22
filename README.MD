@@ -114,17 +114,24 @@ An example page object:
 
 module.exports = {
 
+    url: 'http://www.google.co.uk',
+
     elements: {
-        searchInput: by.name('q')
+        searchInput: by.name('q'),
+        searchResultLink: by.css('div.g > h3 > a')
     },
 
-    preformSearch: function (keywords) {
+    /**
+     * enters a search term into Google's search box and presses enter
+     * @param {string} searchQuery
+     * @returns {Promise} a promise to enter the search values
+     */
+    preformSearch: function (searchQuery) {
 
-        // notice the element path below use the full page qualifier
-        var input = driver.findElement(page.googleSearch.elements.searchInput);
+        var selector = page.googleSearch.elements.searchInput;
 
-        input.sendKeys(keywords);
-        input.sendKeys(selenium.Key.ENTER);
+        // return a promise so the calling function knows the task has completed
+        return driver.findElement(selector).sendKeys(searchQuery, selenium.Key.ENTER);
     }
 };
 ```
@@ -132,15 +139,15 @@ module.exports = {
 And its usage within a step definition:
 
 ```js
-module.exports = function () {
+// ./step-definitions/google-search-steps.js
+this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
+    return helpers.loadPage('http://www.google.com').then(function() {
 
-        page.googleSearch.preformSearch(searchQuery);
-
-        done(); // <<- let cucumber know you're done
-    });
-};
+        // use a method on the page object which also returns a promise
+        return page.googleSearch.preformSearch(searchQuery);
+    })
+});
 ```
 
 ### Shared objects

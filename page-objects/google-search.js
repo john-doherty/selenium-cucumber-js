@@ -7,10 +7,16 @@ module.exports = {
         searchResultLink: by.css('div.g > h3 > a')
     },
 
-    preformSearch: function (keywords) {
+    /**
+     * enters a search term into Google's search box and presses enter
+     * @param {string} searchQuery
+     * @returns {Promise} a promise to enter the search values
+     */
+    preformSearch: function (searchQuery) {
 
         var selector = page.googleSearch.elements.searchInput;
 
-        return driver.findElement(selector).sendKeys(keywords, selenium.Key.ENTER);
+        // return a promise so the calling function knows the task has completed
+        return driver.findElement(selector).sendKeys(searchQuery, selenium.Key.ENTER);
     }
 };
