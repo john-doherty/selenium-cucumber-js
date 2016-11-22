@@ -173,22 +173,25 @@ module.exports = function () {
     });
 
     // executed after each scenario (always closes the browser to ensure fresh tests)
-    this.After(function (scenario, done) {
+    this.After(function (scenario) {
 
         if (scenario.isFailed()) {
 
             // add a screenshot to the error report
-            driver.takeScreenshot().then(function (screenShot) {
-                scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
-                driver.close();
-                driver.quit().then(done);
-            });
+            return driver.takeScreenshot().then(function (screenShot) {
 
+                scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+
+                return driver.close().then(function(){
+                    return driver.quit();
+                });
+            });
         }
         else {
 
-            driver.close();
-            driver.quit().then(done);
+            return driver.close().then(function(){
+                return driver.quit();
+            });
         }
     });
 };
