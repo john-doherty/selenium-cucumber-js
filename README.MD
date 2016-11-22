@@ -60,33 +60,25 @@ The browser automatically closes after each scenario to ensure the next scenario
 
 Step definitions act as the glue between features files and the actual system under test.
 
-_To avoid confusion **always** call the callback/done method within your step definition to let cucumber know when you're done._
+_To avoid confusion **always** return a JavaScript promise your step definition in order to let cucumber know when your task has completed._
 
 ```javascript
-// ./step-definitions/google-search.js
+// ./step-definitions/google-search-steps.js
 
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
+    this.Then(/^I should see some results$/, function () {
 
-        driver.get('http://www.google.com');
+        // driver wair returns a promise so return that
+        return driver.wait(until.elementsLocated(by.css('div.g')), 10000).then(function(){
 
-        var input = driver.findElement(by.name('q'));
+            // return the promise of an element to the following then.
+            return driver.findElements(by.css('div.g'));
+        })
+        .then(function (elements) {
 
-        input.sendKeys(searchQuery);
-        input.sendKeys(selenium.Key.ENTER);
-
-        done(); // <<- let cucumber know you're done
-    });
-
-    this.Then(/^I should see some results$/, function (done) {
-
-        driver.wait(until.elementsLocated(by.css('div.g')), 10000);
-
-        driver.findElements(by.css('div.g')).then(function (elements) {
+            // verify this element has children
             expect(elements.length).to.not.equal(0);
-
-            done(); // <<- let cucumber know you're done
         });
     });
 };
