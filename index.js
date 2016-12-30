@@ -19,6 +19,7 @@ program
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
   .option('-r, --reports <path>', 'output path to save reports. defaults to ./reports', './reports')
   .option('-t, --tags <tagName>', 'name of tag to run')
+  .option('-f, --featureFile <path>', 'a specific feature file to run')
   .parse(process.argv);
 
 program.on('--help', function() {
@@ -41,6 +42,11 @@ global.sharedObjectPaths = program.sharedObjects.map(function(item){
 
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);
+
+// allow a specific feature file to be excuted
+if (program.featureFile) {
+  process.argv.push(program.featureFile);
+}
 
 // add switch to tell cucumber to produce json report files
 process.argv.push('-f');

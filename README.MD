@@ -27,6 +27,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -b, --browser <path>         name of browser to use. defaults to chrome
 -r, --reports <path>         output path to save reports. defaults to ./reports
 -t, --tags <tagName>         name of tag to run
+-f, --featureFile <path>     a specific feature file to run
 ```
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
