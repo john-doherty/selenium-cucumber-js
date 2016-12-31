@@ -284,4 +284,4 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions
 
 ## License
 
-[ISC License](LICENSE) &copy; 2016 [John Doherty](https://courseof.life/johndoherty)
+[ISC License](LICENSE) &copy; 2016 [John Doherty](https://twitter.com/CambridgeMVP)
