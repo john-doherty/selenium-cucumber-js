@@ -254,6 +254,10 @@ node ./node_modules/selenium-cucumber-js/index.js
 
 Please raise bugs via the [selenium-cucumber-js issue tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and, if possible, please provide enough information to allow the bug to be reproduced.
 
+## Contributing
+
+Everyone is very welcome to contribute to this project. You can contribute just by submitting bugs or suggesting improvements by [opening an issue on GitHub](https://github.com/john-doherty/selenium-cucumber-js/issues).
+
 ## Troubleshooting
 
 ### IntelliJ Cucumber Plugin
@@ -284,4 +288,4 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions
 
 ## License
 
-[ISC License](LICENSE) &copy; 2016 [John Doherty](https://twitter.com/CambridgeMVP)
+Licensed under [ISC License](LICENSE) &copy; [John Doherty](https://twitter.com/CambridgeMVP)
