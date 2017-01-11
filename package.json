@@ -1,6 +1,6 @@
 {
   "name": "selenium-cucumber-js",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A debuggable JS BDD framework that uses the official selenium-webdriver for Node and cucumber-js",
   "main": "index.js",
   "scripts": {
