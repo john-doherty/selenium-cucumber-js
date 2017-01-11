@@ -35,4 +35,4 @@ build:
     - export DISPLAY=:99.0
     - mkdir -p shippable/buildoutput
     - shippable_retry npm install
-    - shippable_retry xvfb-run --server-args="-ac" node index.js -b firefox
+    - shippable_retry xvfb-run --server-args="-ac" node index.js -b firefox -t @search
