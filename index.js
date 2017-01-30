@@ -18,7 +18,7 @@ program
   .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ./shared-objects', collectPaths, ['./shared-objects'])
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
   .option('-r, --reports <path>', 'output path to save reports. defaults to ./reports', './reports')
-  .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ./reports', './reports')
+  .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ./reports')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .option('-f, --featureFile <path>', 'a specific feature file to run')
   .parse(process.argv);
