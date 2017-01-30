@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="shop-for-workwear;view-product-detail" tests="4" failures="0" skipped="0">
+        <properties>
+            <property name="@workwear" value="true">
+            </property>
+            <property name="URI" value="/Users/JD/Projects/selenium-cucumber-js/features/buy-workwear.feature">
+            </property>
+        </properties>
+        <testcase name="Given I am on the Mammoth Workwear home page" classname="shop-for-workwear;view-product-detail" time="2.167256987">
+        </testcase>
+        <testcase name="When I click navigation item &quot;Safety Boots&quot;" classname="shop-for-workwear;view-product-detail" time="0.906699449">
+        </testcase>
+        <testcase name="And I click product item &quot;Timberland Pro Euro Hiker 2G Safety Boots&quot;" classname="shop-for-workwear;view-product-detail" time="0.164338598">
+        </testcase>
+        <testcase name="Then I should see product detail with title &quot;Timberland Pro Euro Hiker 2G Safety Boots&quot;" classname="shop-for-workwear;view-product-detail" time="0.006059345">
+        </testcase>
+    </testsuite>
+    <testsuite name="searching-for-vote-cards-app;google-search-for-vote-cards-app" tests="2" failures="0" skipped="0">
+        <properties>
+            <property name="@search" value="true">
+            </property>
+            <property name="URI" value="/Users/JD/Projects/selenium-cucumber-js/features/google-search.feature">
+            </property>
+        </properties>
+        <testcase name="When I search Google for &quot;itunes vote cards app&quot;" classname="searching-for-vote-cards-app;google-search-for-vote-cards-app" time="1.990874784">
+        </testcase>
+        <testcase name="Then I should see some results" classname="searching-for-vote-cards-app;google-search-for-vote-cards-app" time="0.67219732">
+        </testcase>
+    </testsuite>
+    <testsuite name="searching-for-vote-cards-app;google-search-for-course-of-life-app" tests="2" failures="0" skipped="0">
+        <properties>
+            <property name="@search" value="true">
+            </property>
+            <property name="URI" value="/Users/JD/Projects/selenium-cucumber-js/features/google-search.feature">
+            </property>
+        </properties>
+        <testcase name="When I search Google for &quot;CourseOf.Life&quot;" classname="searching-for-vote-cards-app;google-search-for-course-of-life-app" time="2.617391326">
+        </testcase>
+        <testcase name="Then I should see some results" classname="searching-for-vote-cards-app;google-search-for-course-of-life-app" time="0.541283478">
+        </testcase>
+    </testsuite>
+</testsuites>

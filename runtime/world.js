@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * world.js is loaded by the cucumber framework before loading the step definations and feature files
+ * world.js is loaded by the cucumber framework before loading the step definitions and feature files
  * it is responsible for setting up and exposing the driver/browser/expect/assert etc required within each step definition
  */
 
@@ -16,7 +16,8 @@ var fs = require('fs-plus'),
     firefox = require('geckodriver'),
     expect = require('chai').expect,
     assert = require("chai").assert,
-    reporter = require('cucumber-html-reporter');
+    reporter = require('cucumber-html-reporter'),
+    cucumberJunit = require('cucumber-junit');
 
 global.DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
 
@@ -93,7 +94,7 @@ function World() {
     // expose properties to step definition methods via global variables
     Object.keys(runtime).forEach(function (key) {
 
-        // make property/method avaiable as a global (no this. prefix required)
+        // make property/method available as a global (no this. prefix required)
         global[key] = runtime[key];
     });
 
@@ -135,7 +136,7 @@ function World() {
     global.helpers = require('../runtime/helpers.js');
 }
 
-// export the "World" required by cucubmer to allow it to expose methods within step def's
+// export the "World" required by cucumber to allow it to expose methods within step def's
 module.exports = function () {
 
     this.World = World;
@@ -155,11 +156,14 @@ module.exports = function () {
 
     this.registerHandler('AfterFeatures', function (features, done) {
 
+        var cucumberReportPath = path.resolve(global.reportsPath, 'cucumber-report.json');
+
         if (global.reportsPath && fs.existsSync(global.reportsPath)) {
 
+            // generate the HTML report
             var reportOptions = {
                 theme: 'bootstrap',
-                jsonFile: path.resolve(global.reportsPath, 'cucumber-report.json'),
+                jsonFile: cucumberReportPath,
                 output: path.resolve(global.reportsPath, 'cucumber-report.html'),
                 reportSuiteAsScenarios: true,
                 launchReport: true,
@@ -167,6 +171,13 @@ module.exports = function () {
             };
 
             reporter.generate(reportOptions);
+
+            // grab the file data
+            var reportRaw = fs.readFileSync(cucumberReportPath).toString().trim();
+            var xmlReport = cucumberJunit(reportRaw);
+            var junitOutputPath = path.resolve(global.junitPath, 'junit-report.xml');
+
+            fs.writeFileSync(junitOutputPath, xmlReport)
         }
 
         done();
