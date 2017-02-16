@@ -18,9 +18,9 @@ var fs = require('fs-plus'),
     assert = require("chai").assert,
     reporter = require('cucumber-html-reporter'),
     cucumberJunit = require('cucumber-junit');
-
-global.DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
-
+if(!global.DEFAULT_TIMEOUT){
+    global.DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
+}
 /**
  * create the selenium browser based on global var set in index.js
  */
