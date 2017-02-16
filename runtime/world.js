@@ -19,10 +19,6 @@ var fs = require('fs-plus'),
     reporter = require('cucumber-html-reporter'),
     cucumberJunit = require('cucumber-junit');
 
-if (!global.DEFAULT_TIMEOUT) {
-    global.DEFAULT_TIMEOUT = 10 * 1000; // 10 second default
-}
-
 /**
  * create the selenium browser based on global var set in index.js
  */
@@ -144,7 +140,7 @@ module.exports = function () {
     this.World = World;
 
     // set the default timeout for all tests
-    this.setDefaultTimeout(DEFAULT_TIMEOUT);
+    this.setDefaultTimeout(global.DEFAULT_TIMEOUT);
 
     // create the driver before scenario if it's not instantiated
     this.registerHandler('BeforeScenario', function(scenario) {

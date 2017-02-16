@@ -28,6 +28,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 -j, --junit <path>           output path to save junit-report.xml defaults to ./reports
 -t, --tags <tagName>         name of tag to run
 -f, --featureFile <path>     a specific feature file to run
+-x, --timeOut <n>            steps definition timeout in milliseconds. defaults to 10 seconds
 ```
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:

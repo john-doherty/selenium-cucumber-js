@@ -21,6 +21,7 @@ program
   .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ./reports')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .option('-f, --featureFile <path>', 'a specific feature file to run')
+  .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to 10 seconds', parseInt)
   .parse(process.argv);
 
 program.on('--help', function() {
@@ -38,6 +39,9 @@ global.reportsPath = path.resolve(program.reports);
 
 // used within world.js to output junit reports
 global.junitPath = path.resolve(program.junit || program.reports);
+
+// set the default timeout to 10 seconds if not already globally defined or passed via the command line
+global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
 
 // used within world.js to import shared objects into the shared namespace
 global.sharedObjectPaths = program.sharedObjects.map(function(item){
