@@ -1,7 +1,8 @@
 # selenium-cucumber-js
+
 [![Shippable branch](https://img.shields.io/shippable/5818b23bbd56670e00037040/master.svg)](https://app.shippable.com/projects/5818b23bbd56670e00037040) [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js) [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
-A debuggable JS BDD framework that uses the official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") for Node and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
+JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
 ## Installation
 
@@ -190,7 +191,7 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 ### Event handlers
 
-You can register event handlers for the following events within the cucumber lifecycle.
+You can register event handlers for the following events within the cucumber life cycle.
 
 | Event          | Example                                                     |
 |----------------|-------------------------------------------------------------|
@@ -245,7 +246,7 @@ You can use the framework without any command line arguments if your application
 
 ## Demo
 
-This project includes an example feature file and step definition to help you get started. You can run the example using the following command:
+This project includes an example to help you get started. You can run the example using the following command:
 
 ```bash
 node ./node_modules/selenium-cucumber-js/index.js
@@ -289,4 +290,4 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions
 
 ## License
 
-Licensed under [ISC License](LICENSE) &copy; [John Doherty](https://twitter.com/CambridgeMVP)
+Licensed under [ISC License](LICENSE) &copy; [John Doherty](http://www.johndoherty.info)
