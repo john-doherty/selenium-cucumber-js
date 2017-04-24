@@ -18,6 +18,7 @@ program
   .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ./shared-objects', collectPaths, ['./shared-objects'])
   .option('-b, --browser <path>', 'name of browser to use. defaults to chrome', /^(chrome|firefox|phantomjs)$/i, 'chrome')
   .option('-r, --reports <path>', 'output path to save reports. defaults to ./reports', './reports')
+  .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
   .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ./reports')
   .option('-t, --tags <tagName>', 'name of tag to run')
   .option('-f, --featureFile <path>', 'a specific feature file to run')
@@ -36,6 +37,9 @@ global.pageObjectPath = path.resolve(program.pageObjects);
 
 // used within world.js to output reports
 global.reportsPath = path.resolve(program.reports);
+
+// used within world.js to decide if reports should be generated
+global.disableLaunchReport = (program.disableLaunchReport);
 
 // used within world.js to output junit reports
 global.junitPath = path.resolve(program.junit || program.reports);

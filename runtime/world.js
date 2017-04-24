@@ -164,7 +164,7 @@ module.exports = function () {
                 jsonFile: cucumberReportPath,
                 output: path.resolve(global.reportsPath, 'cucumber-report.html'),
                 reportSuiteAsScenarios: true,
-                launchReport: true,
+                launchReport: (!global.disableLaunchReport),
                 ignoreBadJsonFile: true
             };
 
