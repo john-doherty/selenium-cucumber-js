@@ -4,6 +4,25 @@
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
+**Table of Contents**
+
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Options](#options)
+  * [Feature files](#feature-files)
+  * [Step definitions](#step-definitions)
+  * [Page objects](#page-objects)
+  * [Shared objects](#shared-objects)
+  * [Reports](#reports)
+  * [Event handlers](#event-handlers)
+* [How to debug](#how-to-debug)
+* [Default directory structure](#default-directory-structure)
+* [Demo](#demo)
+* [Bugs](#bugs)
+* [Contributing](#contributing)
+* [Troubleshooting](#troubleshooting)
+  * [IntelliJ Cucumber Plugin](#intellij-cucumber-plugin)
+
 ## Installation
 
 ```bash
@@ -35,11 +54,11 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
 
-| Browser | Example |
-| :--- | :--- |
-| Chrome | `-b chrome` |
-| Firefox | `-b firefox` |
-| Phantom JS | `-b phantomjs` |
+| Browser    | Example
+| ---------- | ---------------
+| Chrome     | `-b chrome`
+| Firefox    | `-b firefox`
+| Phantom JS | `-b phantomjs`
 
 ### Feature files
 
@@ -90,20 +109,18 @@ module.exports = function () {
 
 The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
 
-| Variable | Description |
-| :--- | :--- |
-| `driver`    | an instance of [selenium web driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html) (_the browser_) |
-| `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods |
-| `page`      | collection of **page** objects loaded from disk and keyed by filename |
-| `shared`    | collection of **shared** objects loaded from disk and keyed by filename |
-| `helpers`   | a collection of [helper methods](runtime/helpers.js) _things selenium does not provide but really should!_ |
-| `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page |
-| `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events |
-| `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')``` |
-| `assert`    | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')``` |
-| `trace`     | handy trace method to log console output with increased visibility |
-
-
+| Variable    | Description |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| `driver`    | an instance of [selenium web driver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html) (_the browser_)
+| `selenium`  | the raw [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/) module, providing access to static properties/methods
+| `page`      | collection of **page** objects loaded from disk and keyed by filename
+| `shared`    | collection of **shared** objects loaded from disk and keyed by filename
+| `helpers`   | a collection of [helper methods](runtime/helpers.js) _things selenium does not provide but really should!_
+| `by`        | the selenium [By](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_By.html) class used to locate elements on the page
+| `until`     | the selenium [until](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/until.html) class used to wait for elements/events
+| `expect`    | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')```
+| `assert`    | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')```
+| `trace`     | handy trace method to log console output with increased visibility
 
 ### Page objects
 
@@ -194,12 +211,12 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 You can register event handlers for the following events within the cucumber life cycle.
 
-| Event          | Example                                                     |
-|----------------|-------------------------------------------------------------|
-| BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {}) ```  |
-| BeforeScenario | ```this.BeforeScenario(function(scenario, callback) {});``` |
-| AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```  |
-| AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```    |
+| Event          | Example
+| -------------- | ------------------------------------------------------------
+| BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {}) ```
+| BeforeScenario | ```this.BeforeScenario(function(scenario, callback) {});```
+| AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```
+| AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```
 
 ## How to debug
 
