@@ -1,13 +1,13 @@
 'use strict';
 
-var path = require('path'),
-    program = require('commander'),
-    pjson = require('./package.json'),
-    cucumber = require('cucumber');
+var path = require('path');
+var program = require('commander');
+var pjson = require('./package.json');
+var cucumber = require('cucumber');
 
 function collectPaths(value, paths) {
-  paths.push(value);
-  return paths;
+    paths.push(value);
+    return paths;
 }
 
 program
@@ -48,7 +48,7 @@ global.junitPath = path.resolve(program.junit || program.reports);
 global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
 
 // used within world.js to import shared objects into the shared namespace
-global.sharedObjectPaths = program.sharedObjects.map(function(item){
+global.sharedObjectPaths = program.sharedObjects.map(function(item) {
     return path.resolve(item);
 });
 
@@ -57,7 +57,7 @@ process.argv.splice(2, 100);
 
 // allow a specific feature file to be executed
 if (program.featureFile) {
-  process.argv.push(program.featureFile);
+    process.argv.push(program.featureFile);
 }
 
 // add switch to tell cucumber to produce json report files
@@ -91,16 +91,18 @@ var cucumberCli = cucumber.Cli(process.argv);
 global.cucumber = cucumber;
 
 cucumberCli.run(function (succeeded) {
-  var code = succeeded ? 0 : 1;
 
-  function exitNow() {
-    process.exit(code);
-  }
+    var code = succeeded ? 0 : 1;
 
-  if (process.stdout.write('')) {
-    exitNow();
-  } else {
-    // write() returned false, kernel buffer is not empty yet...
-    process.stdout.on('drain', exitNow);
-  }
+    function exitNow() {
+        process.exit(code);
+    }
+
+    if (process.stdout.write('')) {
+        exitNow();
+    }
+    else {
+        // write() returned false, kernel buffer is not empty yet...
+        process.stdout.on('drain', exitNow);
+    }
 });

@@ -5,19 +5,19 @@
  * it is responsible for setting up and exposing the driver/browser/expect/assert etc required within each step definition
  */
 
-var fs = require('fs-plus'),
-    path = require('path'),
-    requireDir = require('require-dir'),
-    merge = require('merge'),
-    chalk = require('chalk'),
-    selenium = require('selenium-webdriver'),
-    phantomjs = require('phantomjs-prebuilt'),
-    chromedriver = require('chromedriver'),
-    firefox = require('geckodriver'),
-    expect = require('chai').expect,
-    assert = require("chai").assert,
-    reporter = require('cucumber-html-reporter'),
-    cucumberJunit = require('cucumber-junit');
+var fs = require('fs-plus');
+var path = require('path');
+var requireDir = require('require-dir');
+var merge = require('merge');
+var chalk = require('chalk');
+var selenium = require('selenium-webdriver');
+var phantomjs = require('phantomjs-prebuilt');
+var chromedriver = require('chromedriver');
+var firefox = require('geckodriver');
+var expect = require('chai').expect;
+var assert = require('chai').assert;
+var reporter = require('cucumber-html-reporter');
+var cucumberJunit = require('cucumber-junit');
 
 /**
  * create the selenium browser based on global var set in index.js
@@ -56,12 +56,12 @@ function getDriverInstance() {
                 javascriptEnabled: true,
                 acceptSslCerts: true,
                 chromeOptions: {
-                    "args": ["start-maximized"]
+                    args: ['start-maximized']
                 },
                 path: chromedriver.path
             }).build();
         }
-    };
+    }
 
     return driver;
 }
@@ -79,7 +79,7 @@ function World() {
     var runtime = {
         driver: null,           // the browser object
         selenium: selenium,     // the raw nodejs selenium driver
-        By: selenium.By,        // in keeping with Java expose selenium By 
+        By: selenium.By,        // in keeping with Java expose selenium By
         by: selenium.By,        // provide a javascript lowercase version
         until: selenium.until,  // provide easy access to selenium until methods
         expect: expect,         // expose chai expect to allow variable testing
@@ -99,12 +99,12 @@ function World() {
     // import page objects (after global vars have been created)
     if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
-        // require all page objects using camelcase as object names
+        // require all page objects using camel case as object names
         runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
 
         // expose globally
         global.page = runtime.page;
-    };
+    }
 
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
@@ -128,7 +128,7 @@ function World() {
             // expose globally
             global.shared = allDirs;
         }
-    };
+    }
 
     // add helpers
     global.helpers = require('../runtime/helpers.js');
@@ -175,7 +175,7 @@ module.exports = function () {
             var xmlReport = cucumberJunit(reportRaw);
             var junitOutputPath = path.resolve(global.junitPath, 'junit-report.xml');
 
-            fs.writeFileSync(junitOutputPath, xmlReport)
+            fs.writeFileSync(junitOutputPath, xmlReport);
         }
 
         done();
@@ -191,16 +191,14 @@ module.exports = function () {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
 
-                return driver.close().then(function(){
+                return driver.close().then(function() {
                     return driver.quit();
                 });
             });
         }
-        else {
 
-            return driver.close().then(function(){
-                return driver.quit();
-            });
-        }
+        return driver.close().then(function() {
+            return driver.quit();
+        });
     });
 };

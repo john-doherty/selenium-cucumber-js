@@ -6,12 +6,12 @@ module.exports = function () {
 
             // use a method on the page object which also returns a promise
             return page.googleSearch.preformSearch(searchQuery);
-        })
+        });
     });
 
     this.Then(/^I should see some results$/, function () {
 
-        // driver wair returns a promise so return that
+        // driver wait returns a promise so return that
         return driver.wait(until.elementsLocated(by.css('div.g')), 10000).then(function() {
 
             // return the promise of an element to the following then.
