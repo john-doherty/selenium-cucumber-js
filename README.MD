@@ -214,9 +214,35 @@ You can register event handlers for the following events within the cucumber lif
 | Event          | Example
 | -------------- | ------------------------------------------------------------
 | BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {}) ```
+| AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```
 | BeforeScenario | ```this.BeforeScenario(function(scenario, callback) {});```
 | AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```
-| AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```
+
+```js
+// add a before feature hook
+this.BeforeFeature(function(feature, done) {
+    console.log('BeforeFeature: ' + feature.getName());
+    done();
+});
+
+// add an after feature hook
+this.AfterFeature(function(feature, done) {
+    console.log('AfterFeature: ' + feature.getName());
+    done();
+});
+
+// add before scenario hook
+this.BeforeScenario(function(scenario, done) {
+    console.log('BeforeScenario: ' + scenario.getName());
+    done();
+});
+
+// add after scenario hook
+this.AfterScenario(function(scenario, done) {
+    console.log('AfterScenario: ' + scenario.getName());
+    done();
+});
+```
 
 ## How to debug
 
