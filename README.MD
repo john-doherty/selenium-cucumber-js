@@ -13,7 +13,7 @@ JavaScript browser automation framework using official [selenium-webdriver](http
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
   * [Shared objects](#shared-objects)
-  * [Event handlers](#event-handlers)
+  * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
   * [Directory structure](#directory-structure)
@@ -201,9 +201,9 @@ module.exports = function () {
 };
 ```
 
-### Event handlers
+### Before/After hooks
 
-You can register event handlers for the following events within the cucumber life cycle.
+You can register before and after handlers for features and scenarios:
 
 | Event          | Example
 | -------------- | ------------------------------------------------------------
