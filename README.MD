@@ -13,10 +13,10 @@ JavaScript browser automation framework using official [selenium-webdriver](http
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
   * [Shared objects](#shared-objects)
-  * [Reports](#reports)
   * [Event handlers](#event-handlers)
-* [How to debug](#how-to-debug)
-* [Default directory structure](#default-directory-structure)
+  * [Reports](#reports)
+  * [How to debug](#how-to-debug)
+  * [Directory structure](#directory-structure)
 * [Demo](#demo)
 * [Bugs](#bugs)
 * [Contributing](#contributing)
@@ -201,12 +201,6 @@ module.exports = function () {
 };
 ```
 
-### Reports
-
-HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
-
-![Cucumber HTML report](img/cucumber-html-report.png)
-
 ### Event handlers
 
 You can register event handlers for the following events within the cucumber life cycle.
@@ -219,32 +213,41 @@ You can register event handlers for the following events within the cucumber lif
 | AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```
 
 ```js
-// add a before feature hook
-this.BeforeFeature(function(feature, done) {
-    console.log('BeforeFeature: ' + feature.getName());
-    done();
-});
+module.exports = function () {
 
-// add an after feature hook
-this.AfterFeature(function(feature, done) {
-    console.log('AfterFeature: ' + feature.getName());
-    done();
-});
+    // add a before feature hook
+    this.BeforeFeature(function(feature, done) {
+        console.log('BeforeFeature: ' + feature.getName());
+        done();
+    });
 
-// add before scenario hook
-this.BeforeScenario(function(scenario, done) {
-    console.log('BeforeScenario: ' + scenario.getName());
-    done();
-});
+    // add an after feature hook
+    this.AfterFeature(function(feature, done) {
+        console.log('AfterFeature: ' + feature.getName());
+        done();
+    });
 
-// add after scenario hook
-this.AfterScenario(function(scenario, done) {
-    console.log('AfterScenario: ' + scenario.getName());
-    done();
-});
+    // add before scenario hook
+    this.BeforeScenario(function(scenario, done) {
+        console.log('BeforeScenario: ' + scenario.getName());
+        done();
+    });
+
+    // add after scenario hook
+    this.AfterScenario(function(scenario, done) {
+        console.log('AfterScenario: ' + scenario.getName());
+        done();
+    });
+};
 ```
 
-## How to debug
+### Reports
+
+HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
+
+![Cucumber HTML report](img/cucumber-html-report.png)
+
+### How to debug
 
 Most selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that is resolved when the method completes. The easiest way to step in with a debugger is to add a ```.then``` method to a selenium function and place a ```debugger``` statement within it, for example:
 
@@ -268,7 +271,7 @@ module.exports = function () {
 };
 ```
 
-## Default directory structure
+### Directory structure
 
 You can use the framework without any command line arguments if your application uses the following folder structure:
 
