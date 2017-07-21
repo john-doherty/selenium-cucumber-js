@@ -184,7 +184,7 @@ module.exports = function () {
     // executed after each scenario (always closes the browser to ensure fresh tests)
     this.After(function (scenario) {
 
-        if (scenario.isFailed()) {
+        if (scenario.isFailed() && !global.noScreenshot) {
 
             // add a screenshot to the error report
             return driver.takeScreenshot().then(function (screenShot) {

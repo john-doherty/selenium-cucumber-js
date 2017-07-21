@@ -23,6 +23,7 @@ program
   .option('-t, --tags <tagName>', 'name of tag to run')
   .option('-f, --featureFile <path>', 'a specific feature file to run')
   .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to 10 seconds', parseInt)
+  .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
   .parse(process.argv);
 
 program.on('--help', function() {
@@ -40,6 +41,9 @@ global.reportsPath = path.resolve(program.reports);
 
 // used within world.js to decide if reports should be generated
 global.disableLaunchReport = (program.disableLaunchReport);
+
+// used with world.js to determine if a screenshot should be captured on error
+global.noScreenshot = (program.noScreenshot);
 
 // used within world.js to output junit reports
 global.junitPath = path.resolve(program.junit || program.reports);

@@ -63,6 +63,7 @@
       "browser": true
     },
     "globals": {
+      "selenium": true,
       "helpers": true,
       "page": true,
       "driver": true,

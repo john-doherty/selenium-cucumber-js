@@ -9,6 +9,12 @@ module.exports = function () {
         });
     });
 
+    this.Then(/^I should see "([^"]*)" in the results$/, function (keywords) {
+
+        // resolves if an item on the page contains text
+        return driver.wait(until.elementsLocated(by.partialLinkText(keywords)), 10000);
+    });
+
     this.Then(/^I should see some results$/, function () {
 
         // driver wait returns a promise so return that
