@@ -24,6 +24,7 @@ var cucumberJunit = require('cucumber-junit');
  */
 function getDriverInstance() {
 
+    var driver;
     switch (browserName || '') {
 
         case 'firefox': {
@@ -48,8 +49,7 @@ function getDriverInstance() {
 
         } break;
 
-        // default to chrome
-        default: {
+        case 'chrome': {
 
             driver = new selenium.Builder().withCapabilities({
                 browserName: 'chrome',
@@ -60,6 +60,15 @@ function getDriverInstance() {
                 },
                 path: chromedriver.path
             }).build();
+        } break;
+
+        // try to load from file
+        default: {
+            var driverFileName = path.resolve(process.cwd(), browserName);
+            if (!fs.isFileSync(driverFileName)) {
+                throw "Could not find driver file: " + driverFileName;
+            }
+            driver = require(driverFileName)();
         }
     }
 
