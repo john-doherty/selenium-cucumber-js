@@ -11,9 +11,6 @@ var requireDir = require('require-dir');
 var merge = require('merge');
 var chalk = require('chalk');
 var selenium = require('selenium-webdriver');
-var phantomjs = require('phantomjs-prebuilt');
-var chromedriver = require('chromedriver');
-var firefox = require('geckodriver');
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
@@ -28,38 +25,15 @@ function getDriverInstance() {
     switch (browserName || '') {
 
         case 'firefox': {
-
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'firefox',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                'webdriver.firefox.bin': firefox.path
-            }).build();
-
+            driver = require("./firefoxDriver")();
         } break;
 
         case 'phantomjs': {
-
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'phantomjs',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                'phantomjs.binary.path': phantomjs.path
-            }).build();
-
+            driver = require("./phantomDriver")();
         } break;
 
         case 'chrome': {
-
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'chrome',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                chromeOptions: {
-                    args: ['start-maximized']
-                },
-                path: chromedriver.path
-            }).build();
+            driver = require("./chromeDriver")();
         } break;
 
         // try to load from file
