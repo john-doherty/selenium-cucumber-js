@@ -1,9 +1,10 @@
 "use strict";
 (function(){
     var chromedriver = require('chromedriver');
+    var selenium = require('selenium-webdriver');
 
     module.exports = function () {
-        return new selenium.Builder().withCapabilities({
+        var driver = new selenium.Builder().withCapabilities({
             browserName: 'chrome',
             javascriptEnabled: true,
             acceptSslCerts: true,
@@ -12,5 +13,9 @@
             },
             path: chromedriver.path
         }).build();
+
+        driver.manage().window().maximize();
+
+        return driver;
     }
 })();

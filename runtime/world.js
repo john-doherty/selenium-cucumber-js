@@ -131,8 +131,6 @@ module.exports = function () {
         if (!global.driver) {
             global.driver = getDriverInstance();
         }
-
-        driver.manage().window().maximize();
     });
 
     this.registerHandler('AfterFeatures', function (features, done) {
