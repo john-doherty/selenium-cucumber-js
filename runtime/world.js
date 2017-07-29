@@ -96,16 +96,6 @@ function World() {
         global[key] = runtime[key];
     });
 
-    // import page objects (after global vars have been created)
-    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
-
-        // require all page objects using camel case as object names
-        runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
-
-        // expose globally
-        global.page = runtime.page;
-    }
-
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
 
@@ -128,6 +118,16 @@ function World() {
             // expose globally
             global.shared = allDirs;
         }
+    }
+
+    // import page objects (after global vars have been created)
+    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
+
+        // require all page objects using camel case as object names
+        runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
+
+        // expose globally
+        global.page = runtime.page;
     }
 
     // add helpers
