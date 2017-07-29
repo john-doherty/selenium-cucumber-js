@@ -68,8 +68,8 @@ function World() {
         expect: expect,         // expose chai expect to allow variable testing
         assert: assert,         // expose chai assert to allow variable testing
         trace: consoleInfo,     // expose an info method to log output to the console in a readable/visible format
-        page: {},               // empty page objects placeholder
-        shared: {}              // empty shared objects placeholder
+        page: global.page||{},               // empty page objects placeholder
+        shared: global.shared||{}              // empty shared objects placeholder
     };
 
     // expose properties to step definition methods via global variables
@@ -78,7 +78,9 @@ function World() {
         // make property/method available as a global (no this. prefix required)
         global[key] = runtime[key];
     });
+}
 
+function createGlobalObjects() {
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
 
@@ -107,10 +109,7 @@ function World() {
     if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
         // require all page objects using camel case as object names
-        runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
-
-        // expose globally
-        global.page = runtime.page;
+        global.page = requireDir(global.pageObjectPath, { camelcase: true });
     }
 
     // add helpers
@@ -119,6 +118,8 @@ function World() {
 
 // export the "World" required by cucumber to allow it to expose methods within step def's
 module.exports = function () {
+    World();
+    createGlobalObjects();
 
     this.World = World;
 
