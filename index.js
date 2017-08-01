@@ -52,6 +52,9 @@ global.pageObjectPath = path.resolve(program.pageObjects);
 
 // used within world.js to output reports
 global.reportsPath = path.resolve(program.reports);
+if (!fs.existsSync(program.reports)){
+    fs.makeTreeSync(program.reports);
+}
 
 // used within world.js to decide if reports should be generated
 global.disableLaunchReport = (program.disableLaunchReport);
