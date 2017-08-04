@@ -12,14 +12,16 @@ function collectPaths(value, paths) {
 }
 
 var config = {
-    "step_def_dir": "./step-definitions",
-    "page_obj_dir": "./page-objects",
-    "shared_obj_dir": "./shared-objects",
-    "reports_dir": "./reports",
-    "default_browser": "chrome",
-    "timeout": 10000
+    step_def_dir: './step-definitions',
+    page_obj_dir: './page-objects',
+    shared_obj_dir: './shared-objects',
+    reports_dir: './reports',
+    default_browser: 'chrome',
+    timeout: 10000
 };
+
 var configFileName = path.resolve(process.cwd(), 'selenium-cucumber-js.json');
+
 if (fs.isFileSync(configFileName)) {
     config = Object.assign(config, require(configFileName));
 }
