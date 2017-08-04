@@ -64,9 +64,12 @@ function consoleInfo() {
     console.log(output);
 }
 
-function World() {
+/**
+ * Creates a list of variables to expose globally and therefore accessible within each step definition
+ * @returns {void}
+ */
+function createWorld() {
 
-    // create a list of variables to expose globally and therefore accessible within each step definition
     var runtime = {
         driver: null,               // the browser object
         selenium: selenium,         // the raw nodejs selenium driver
@@ -88,7 +91,11 @@ function World() {
     });
 }
 
-function createGlobalObjects() {
+/**
+ * Import shared objects, pages object and helpers into global scope
+ * @returns {void}
+ */
+function importSupportObjects() {
 
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
@@ -127,10 +134,12 @@ function createGlobalObjects() {
 
 // export the "World" required by cucumber to allow it to expose methods within step def's
 module.exports = function () {
-    World();
-    createGlobalObjects();
 
-    this.World = World;
+    createWorld();
+    importSupportObjects();
+
+    // this.World must be set!
+    this.World = createWorld;
 
     // set the default timeout for all tests
     this.setDefaultTimeout(global.DEFAULT_TIMEOUT);
