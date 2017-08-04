@@ -16,31 +16,39 @@ var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 
+// drivers
+var FireFoxDriver = require('./firefoxDriver.js');
+var PhantomJSDriver = require('./phantomDriver.js');
+var ChromeDriver = require('./chromeDriver');
+
 /**
  * create the selenium browser based on global var set in index.js
+ * @returns {ThenableWebDriver} selenium web driver
  */
 function getDriverInstance() {
 
     var driver;
+
     switch (browserName || '') {
 
         case 'firefox': {
-            driver = require("./firefoxDriver")();
+            driver = new FireFoxDriver();
         } break;
 
         case 'phantomjs': {
-            driver = require("./phantomDriver")();
+            driver = new PhantomJSDriver();
         } break;
 
         case 'chrome': {
-            driver = require("./chromeDriver")();
+            driver = new ChromeDriver();
         } break;
 
         // try to load from file
         default: {
             var driverFileName = path.resolve(process.cwd(), browserName);
+
             if (!fs.isFileSync(driverFileName)) {
-                throw "Could not find driver file: " + driverFileName;
+                throw new Error('Could not find driver file: ' + driverFileName);
             }
             driver = require(driverFileName)();
         }
@@ -60,16 +68,16 @@ function World() {
 
     // create a list of variables to expose globally and therefore accessible within each step definition
     var runtime = {
-        driver: null,           // the browser object
-        selenium: selenium,     // the raw nodejs selenium driver
-        By: selenium.By,        // in keeping with Java expose selenium By
-        by: selenium.By,        // provide a javascript lowercase version
-        until: selenium.until,  // provide easy access to selenium until methods
-        expect: expect,         // expose chai expect to allow variable testing
-        assert: assert,         // expose chai assert to allow variable testing
-        trace: consoleInfo,     // expose an info method to log output to the console in a readable/visible format
-        page: global.page||{},               // empty page objects placeholder
-        shared: global.shared||{}              // empty shared objects placeholder
+        driver: null,               // the browser object
+        selenium: selenium,         // the raw nodejs selenium driver
+        By: selenium.By,            // in keeping with Java expose selenium By
+        by: selenium.By,            // provide a javascript lowercase version
+        until: selenium.until,      // provide easy access to selenium until methods
+        expect: expect,             // expose chai expect to allow variable testing
+        assert: assert,             // expose chai assert to allow variable testing
+        trace: consoleInfo,         // expose an info method to log output to the console in a readable/visible format
+        page: global.page || {},    // empty page objects placeholder
+        shared: global.shared || {} // empty shared objects placeholder
     };
 
     // expose properties to step definition methods via global variables
@@ -81,6 +89,7 @@ function World() {
 }
 
 function createGlobalObjects() {
+
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
 

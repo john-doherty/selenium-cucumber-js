@@ -1,18 +1,22 @@
-"use strict";
-(function(){
-    var firefox = require('geckodriver');
-    var selenium = require('selenium-webdriver');
+'use strict';
 
-    module.exports = function () {
-        var driver = new selenium.Builder().withCapabilities({
-            browserName: 'firefox',
-            javascriptEnabled: true,
-            acceptSslCerts: true,
-            'webdriver.firefox.bin': firefox.path
-        }).build();
+var firefox = require('geckodriver');
+var selenium = require('selenium-webdriver');
 
-        driver.manage().window().maximize();
+/**
+ * Creates a Selenium WebDriver using Firefox as the browser
+ * @returns {ThenableWebDriver} selenium web driver
+ */
+module.exports = function() {
 
-        return driver;
-    }
-})();
+    var driver = new selenium.Builder().withCapabilities({
+        browserName: 'firefox',
+        javascriptEnabled: true,
+        acceptSslCerts: true,
+        'webdriver.firefox.bin': firefox.path
+    }).build();
+
+    driver.manage().window().maximize();
+
+    return driver;
+};
