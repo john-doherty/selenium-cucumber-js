@@ -11,6 +11,17 @@ function collectPaths(value, paths) {
     return paths;
 }
 
+function coerceInt(value, defaultValue) {
+    var int = parseInt(value);
+
+    if (typeof int == 'number') {
+        return int;
+    }
+    else {
+        return defaultValue;
+    }
+}
+
 var config = {
     step_def_dir: './step-definitions',
     page_obj_dir: './page-objects',
@@ -38,7 +49,7 @@ program
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports_dir)
     .option('-t, --tags <tagName>', 'name of tag to run')
     .option('-f, --featureFile <path>', 'a specific feature file to run')
-    .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, parseInt, config.timeout)
+    .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .parse(process.argv);
 
