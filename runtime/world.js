@@ -11,55 +11,46 @@ var requireDir = require('require-dir');
 var merge = require('merge');
 var chalk = require('chalk');
 var selenium = require('selenium-webdriver');
-var phantomjs = require('phantomjs-prebuilt');
-var chromedriver = require('chromedriver');
-var firefox = require('geckodriver');
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 
+// drivers
+var FireFoxDriver = require('./firefoxDriver.js');
+var PhantomJSDriver = require('./phantomDriver.js');
+var ChromeDriver = require('./chromeDriver');
+
 /**
  * create the selenium browser based on global var set in index.js
+ * @returns {ThenableWebDriver} selenium web driver
  */
 function getDriverInstance() {
+
+    var driver;
 
     switch (browserName || '') {
 
         case 'firefox': {
-
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'firefox',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                'webdriver.firefox.bin': firefox.path
-            }).build();
-
+            driver = new FireFoxDriver();
         } break;
 
         case 'phantomjs': {
-
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'phantomjs',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                'phantomjs.binary.path': phantomjs.path
-            }).build();
-
+            driver = new PhantomJSDriver();
         } break;
 
-        // default to chrome
-        default: {
+        case 'chrome': {
+            driver = new ChromeDriver();
+        } break;
 
-            driver = new selenium.Builder().withCapabilities({
-                browserName: 'chrome',
-                javascriptEnabled: true,
-                acceptSslCerts: true,
-                chromeOptions: {
-                    args: ['start-maximized']
-                },
-                path: chromedriver.path
-            }).build();
+        // try to load from file
+        default: {
+            var driverFileName = path.resolve(process.cwd(), browserName);
+
+            if (!fs.isFileSync(driverFileName)) {
+                throw new Error('Could not find driver file: ' + driverFileName);
+            }
+            driver = require(driverFileName)();
         }
     }
 
@@ -73,20 +64,23 @@ function consoleInfo() {
     console.log(output);
 }
 
-function World() {
+/**
+ * Creates a list of variables to expose globally and therefore accessible within each step definition
+ * @returns {void}
+ */
+function createWorld() {
 
-    // create a list of variables to expose globally and therefore accessible within each step definition
     var runtime = {
-        driver: null,           // the browser object
-        selenium: selenium,     // the raw nodejs selenium driver
-        By: selenium.By,        // in keeping with Java expose selenium By
-        by: selenium.By,        // provide a javascript lowercase version
-        until: selenium.until,  // provide easy access to selenium until methods
-        expect: expect,         // expose chai expect to allow variable testing
-        assert: assert,         // expose chai assert to allow variable testing
-        trace: consoleInfo,     // expose an info method to log output to the console in a readable/visible format
-        page: {},               // empty page objects placeholder
-        shared: {}              // empty shared objects placeholder
+        driver: null,               // the browser object
+        selenium: selenium,         // the raw nodejs selenium driver
+        By: selenium.By,            // in keeping with Java expose selenium By
+        by: selenium.By,            // provide a javascript lowercase version
+        until: selenium.until,      // provide easy access to selenium until methods
+        expect: expect,             // expose chai expect to allow variable testing
+        assert: assert,             // expose chai assert to allow variable testing
+        trace: consoleInfo,         // expose an info method to log output to the console in a readable/visible format
+        page: global.page || {},    // empty page objects placeholder
+        shared: global.shared || {} // empty shared objects placeholder
     };
 
     // expose properties to step definition methods via global variables
@@ -95,16 +89,13 @@ function World() {
         // make property/method available as a global (no this. prefix required)
         global[key] = runtime[key];
     });
+}
 
-    // import page objects (after global vars have been created)
-    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
-
-        // require all page objects using camel case as object names
-        runtime.page = requireDir(global.pageObjectPath, { camelcase: true });
-
-        // expose globally
-        global.page = runtime.page;
-    }
+/**
+ * Import shared objects, pages object and helpers into global scope
+ * @returns {void}
+ */
+function importSupportObjects() {
 
     // import shared objects from multiple paths (after global vars have been created)
     if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
@@ -130,6 +121,13 @@ function World() {
         }
     }
 
+    // import page objects (after global vars have been created)
+    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
+
+        // require all page objects using camel case as object names
+        global.page = requireDir(global.pageObjectPath, { camelcase: true });
+    }
+
     // add helpers
     global.helpers = require('../runtime/helpers.js');
 }
@@ -137,7 +135,11 @@ function World() {
 // export the "World" required by cucumber to allow it to expose methods within step def's
 module.exports = function () {
 
-    this.World = World;
+    createWorld();
+    importSupportObjects();
+
+    // this.World must be set!
+    this.World = createWorld;
 
     // set the default timeout for all tests
     this.setDefaultTimeout(global.DEFAULT_TIMEOUT);
@@ -148,8 +150,6 @@ module.exports = function () {
         if (!global.driver) {
             global.driver = getDriverInstance();
         }
-
-        driver.manage().window().maximize();
     });
 
     this.registerHandler('AfterFeatures', function (features, done) {

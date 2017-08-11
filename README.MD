@@ -63,7 +63,7 @@ By default tests are run using Google Chrome, to run tests using another browser
 
 ### Feature files
 
-A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behaviour without detailing how that behaviour is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
+A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
 
 ```gherkin
 # ./features/google-search.feature
@@ -93,7 +93,7 @@ module.exports = function () {
 
     this.Then(/^I should see some results$/, function () {
 
-        // driver wair returns a promise so return that
+        // driver wait returns a promise so return that
         return driver.wait(until.elementsLocated(by.css('div.g')), 10000).then(function(){
 
             // return the promise of an element to the following then.
@@ -132,7 +132,7 @@ Page objects also have access to the same runtime variables available to step de
 An example page object:
 
 ```javascript
-// ./page-objects/gogole-search.js
+// ./page-objects/google-search.js
 
 module.exports = {
 
@@ -208,7 +208,7 @@ You can register before and after handlers for features and scenarios:
 
 | Event          | Example
 | -------------- | ------------------------------------------------------------
-| BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {}) ```
+| BeforeFeature  | ```this.BeforeFeatures(function(feature, callback) {})```
 | AfterFeature   | ```this.AfterFeature(function(feature, callback) {});```
 | BeforeScenario | ```this.BeforeScenario(function(scenario, callback) {});```
 | AfterScenario  | ```this.AfterScenario(function(scenario, callback) {});```
@@ -276,7 +276,7 @@ module.exports = function () {
 
 You can use the framework without any command line arguments if your application uses the following folder structure:
 
-```
+```bash
 .
 ├── features
 │   └── google-search.feature
@@ -314,7 +314,7 @@ Everyone is very welcome to contribute to this project. You can contribute just 
 
 IntelliJ based IDE's have a plugin that allows the tester to control click on a `Given`, `When`, `Then` statement within a Cucumber feature file and have the user taken to the associated step definition. This plugin relies on your project having the following folder structure:
 
-```
+```bash
 .
 └── features
    │   google-search.feature
