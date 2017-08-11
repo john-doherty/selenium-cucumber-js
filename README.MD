@@ -61,6 +61,34 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Firefox    | `-b firefox`
 | Phantom JS | `-b phantomjs`
 
+### Default configuration file
+Many configuration options can be defaulted so they don't need to be overridden on the command line.
+  
+Create a "selenium-cucumber-js.json" file at the root of your project and add your configuration overrides.
+For example the following duplicates the current configuration defaults.
+
+```json
+{
+    step_def_dir: './step-definitions',
+    page_obj_dir: './page-objects',
+    shared_obj_dir: './shared-objects',
+    reports_dir: './reports',
+    default_browser: 'chrome',
+    timeout: 10000
+}
+```
+This would set configuration to match the expected directory structure of IntelliJ's Cucumber plugin, and make default timeout one minute.
+```json
+{
+    step_def_dir: './features/step_definitions',
+    page_obj_dir: './features/page_objects',
+    shared_obj_dir: './features/shared_objects',
+    reports_dir: './features/reports',
+    timeout: 60000
+}
+```
+
+
 ### Feature files
 
 A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
