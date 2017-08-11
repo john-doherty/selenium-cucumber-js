@@ -63,27 +63,30 @@ By default tests are run using Google Chrome, to run tests using another browser
 
 ### Default configuration file
 Many configuration options can be defaulted so they don't need to be overridden on the command line.
+The JSON keys are the "long name" from the command line options.
   
-Create a "selenium-cucumber-js.json" file at the root of your project and add your configuration overrides.
-For example the following duplicates the current configuration defaults.
+A "selenium-cucumber-js.json" file at the root of your project allows you to specify a subset of configuration overrides.
+
+For example the following duplicates default configuration.  
 
 ```json
 {
-    step_def_dir: './step-definitions',
-    page_obj_dir: './page-objects',
-    shared_obj_dir: './shared-objects',
-    reports_dir: './reports',
-    default_browser: 'chrome',
+    steps: './step-definitions',
+    pageObjects: './page-objects',
+    sharedObjects: './shared-objects',
+    reports: './reports',
+    browser: 'chrome',
     timeout: 10000
 }
 ```
 This would set configuration to match the expected directory structure of IntelliJ's Cucumber plugin, and make default timeout one minute.
+Note that the default browser has not been overridden and will remain 'chrome'.
 ```json
 {
-    step_def_dir: './features/step_definitions',
-    page_obj_dir: './features/page_objects',
-    shared_obj_dir: './features/shared_objects',
-    reports_dir: './features/reports',
+    steps: './features/step_definitions',
+    pageObjects: './features/page_objects',
+    sharedObjects: './features/shared_objects',
+    reports: './features/reports',
     timeout: 60000
 }
 ```
