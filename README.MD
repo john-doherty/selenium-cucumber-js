@@ -9,6 +9,7 @@ JavaScript browser automation framework using official [selenium-webdriver](http
 * [Installation](#installation)
 * [Usage](#usage)
   * [Options](#options)
+    * [Configuration file](#configuration-file)
   * [Feature files](#feature-files)
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
@@ -60,6 +61,33 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Chrome     | `-b chrome`
 | Firefox    | `-b firefox`
 | Phantom JS | `-b phantomjs`
+
+#### Configuration file
+
+Configuration options can be set using a `selenium-cucumber-js.json` file at the root of your project. The JSON keys use the "long name" from the command line options. For example the following duplicates default configuration:
+
+```json
+{
+    "steps": "./step-definitions",
+    "pageObjects": "./page-objects",
+    "sharedObjects": "./shared-objects",
+    "reports": "./reports",
+    "browser": "chrome",
+    "timeout": 10000
+}
+```
+
+Whereas the following would set configuration to match the expected directory structure of IntelliJ's Cucumber plugin, and make default timeout one minute. _Note that the default browser has not been overridden and will remain 'chrome'._
+
+```json
+{
+    "steps": "./features/step_definitions",
+    "pageObjects": "./features/page_objects",
+    "sharedObjects": "./features/shared_objects",
+    "reports": "./features/reports",
+    "timeout": 60000
+}
+```
 
 ### Feature files
 
