@@ -9,7 +9,7 @@ JavaScript browser automation framework using official [selenium-webdriver](http
 * [Installation](#installation)
 * [Usage](#usage)
   * [Options](#options)
-  * [Default configuration file](#default-configuration-file)
+    * [Configuration file](#configuration-file)
   * [Feature files](#feature-files)
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
@@ -62,14 +62,9 @@ By default tests are run using Google Chrome, to run tests using another browser
 | Firefox    | `-b firefox`
 | Phantom JS | `-b phantomjs`
 
-### Default configuration file
+#### Configuration file
 
-Many configuration options can be defaulted so they don't need to be overridden on the command line.
-The JSON keys are the "long name" from the command line options.
-
-A "selenium-cucumber-js.json" file at the root of your project allows you to specify a subset of configuration overrides.
-
-For example the following duplicates default configuration:
+Configuration options can be set using a `selenium-cucumber-js.json` file at the root of your project. The JSON keys use the "long name" from the command line options. For example the following duplicates default configuration:
 
 ```json
 {
@@ -82,8 +77,7 @@ For example the following duplicates default configuration:
 }
 ```
 
-This would set configuration to match the expected directory structure of IntelliJ's Cucumber plugin, and make default timeout one minute.
-Note that the default browser has not been overridden and will remain 'chrome'.
+Whereas the following would set configuration to match the expected directory structure of IntelliJ's Cucumber plugin, and make default timeout one minute. _Note that the default browser has not been overridden and will remain 'chrome'._
 
 ```json
 {
