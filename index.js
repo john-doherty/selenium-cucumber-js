@@ -23,11 +23,11 @@ function coerceInt(value, defaultValue) {
 }
 
 var config = {
-    step_def_dir: './step-definitions',
-    page_obj_dir: './page-objects',
-    shared_obj_dir: './shared-objects',
-    reports_dir: './reports',
-    default_browser: 'chrome',
+    steps: './step-definitions',
+    pageObjects: './page-objects',
+    sharedObjects: './shared-objects',
+    reports: './reports',
+    browser: 'chrome',
     timeout: 10000
 };
 
@@ -40,13 +40,13 @@ if (fs.isFileSync(configFileName)) {
 program
     .version(pjson.version)
     .description(pjson.description)
-    .option('-s, --steps <path>', 'path to step definitions. defaults to ' + config.step_def_dir, config.step_def_dir)
-    .option('-p, --pageObjects <path>', 'path to page objects. defaults to ' + config.page_obj_dir, config.page_obj_dir)
-    .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ' + config.shared_obj_dir, collectPaths, [config.shared_obj_dir])
-    .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.default_browser, config.default_browser)
-    .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports_dir, config.reports_dir)
+    .option('-s, --steps <path>', 'path to step definitions. defaults to ' + config.steps, config.steps)
+    .option('-p, --pageObjects <path>', 'path to page objects. defaults to ' + config.pageObjects, config.pageObjects)
+    .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ' + config.sharedObjects, collectPaths, [config.sharedObjects])
+    .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
+    .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports, config.reports)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
-    .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports_dir)
+    .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
     .option('-t, --tags <tagName>', 'name of tag to run', collectPaths, [])
     .option('-f, --featureFile <path>', 'a specific feature file to run')
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
