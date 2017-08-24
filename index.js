@@ -47,7 +47,7 @@ program
     .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports, config.reports)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
-    .option('-t, --tags <tagName>', 'name of tag to run')
+    .option('-t, --tags <tagName>', 'name of tag to run', collectPaths, [])
     .option('-f, --featureFile <path>', 'a specific feature file to run')
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
@@ -110,8 +110,10 @@ process.argv.push(path.resolve(program.steps));
 
 // add tag
 if (program.tags) {
-    process.argv.push('-t');
-    process.argv.push(program.tags);
+    program.tags.forEach(function (tag) {
+      process.argv.push('-t');
+      process.argv.push(tag);
+    })
 }
 
 // add strict option (fail if there are any undefined or pending steps)
