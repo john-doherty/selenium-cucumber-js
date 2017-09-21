@@ -19,6 +19,7 @@ var cucumberJunit = require('cucumber-junit');
 // drivers
 var FireFoxDriver = require('./firefoxDriver.js');
 var PhantomJSDriver = require('./phantomDriver.js');
+var electronDriver = require('./electronDriver.js');
 var ChromeDriver = require('./chromeDriver');
 
 /**
@@ -37,6 +38,10 @@ function getDriverInstance() {
 
         case 'phantomjs': {
             driver = new PhantomJSDriver();
+        } break;
+
+        case 'electron': {
+            driver = new electronDriver();
         } break;
 
         case 'chrome': {
