@@ -22,7 +22,7 @@ var Eyes = require('eyes.selenium').Eyes;
 // drivers
 var FireFoxDriver = require('./firefoxDriver.js');
 var PhantomJSDriver = require('./phantomDriver.js');
-var electronDriver = require('./electronDriver.js');
+var ElectronDriver = require('./electronDriver.js');
 var ChromeDriver = require('./chromeDriver');
 
 /**
@@ -46,9 +46,8 @@ function getDriverInstance() {
             break;
 
         case 'electron': {
-            driver = new electronDriver();
-        }
-            break;
+            driver = new ElectronDriver();
+        } break;
 
         case 'chrome': {
             driver = new ChromeDriver();
@@ -62,6 +61,7 @@ function getDriverInstance() {
             if (!fs.isFileSync(driverFileName)) {
                 throw new Error('Could not find driver file: ' + driverFileName);
             }
+
             driver = require(driverFileName)();
         }
     }
