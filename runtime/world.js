@@ -47,7 +47,8 @@ function getDriverInstance() {
 
         case 'electron': {
             driver = new ElectronDriver();
-        } break;
+        }
+            break;
 
         case 'chrome': {
             driver = new ChromeDriver();
@@ -223,18 +224,15 @@ module.exports = function () {
 
                 return driver.close().then(function () {
                     return driver.quit();
-                })
-            }).then(function () {
-                // If the test was aborted before eyes.close was called ends the test as aborted.
-                return eyes.abortIfNotClosed();
-            });
+                }).then(function () {
+                    // If the test was aborted before eyes.close was called ends the test as aborted.
+                    return eyes.abortIfNotClosed();
+                });
+            })
         }
 
         return driver.close().then(function () {
             return driver.quit();
-        }).then(function () {
-            // If the test was aborted before eyes.close was called ends the test as aborted.
-            return eyes.abortIfNotClosed();
-        });
+        })
     });
 };
