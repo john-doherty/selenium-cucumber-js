@@ -1,6 +1,6 @@
 {
   "name": "selenium-cucumber-js",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js",
   "main": "index.js",
   "scripts": {
@@ -53,13 +53,13 @@
     "geckodriver": "1.1.2",
     "merge": "1.2.0",
     "require-dir": "0.3.2",
-    "selenium-webdriver": "3.0.0"
+    "selenium-webdriver": "3.0.0",
+    "eyes.selenium": "0.0.72"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eyes.selenium": "0.0.72"
+    "eslint-plugin-import": "^2.2.0"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
