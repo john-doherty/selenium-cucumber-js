@@ -260,11 +260,7 @@ module.exports = {
         searchResultLink: by.css('div.g > h3 > a')
     },
 
-    /**
-     * enters a search term into Google's search box and presses enter
-     * @param {string} searchQuery
-     * @returns {Promise} a promise to enter the search values
-     */
+    
     applitools_Eyes_Example: function () {
 
         // Start the test and set the browser's viewport size to 800x600.
