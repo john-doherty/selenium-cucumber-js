@@ -16,6 +16,9 @@ var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 
+// Initialize the eyes SDK and set your private API key.
+var Eyes = require('eyes.selenium').Eyes;
+
 // drivers
 var FireFoxDriver = require('./firefoxDriver.js');
 var PhantomJSDriver = require('./phantomDriver.js');
@@ -34,19 +37,23 @@ function getDriverInstance() {
 
         case 'firefox': {
             driver = new FireFoxDriver();
-        } break;
+        }
+            break;
 
         case 'phantomjs': {
             driver = new PhantomJSDriver();
-        } break;
+        }
+            break;
 
         case 'electron': {
             driver = new ElectronDriver();
-        } break;
+        }
+            break;
 
         case 'chrome': {
             driver = new ChromeDriver();
-        } break;
+        }
+            break;
 
         // try to load from file
         default: {
@@ -61,6 +68,21 @@ function getDriverInstance() {
     }
 
     return driver;
+}
+
+
+/**
+ * Initialize the eyes SDK and set your private API key via the config file.*/
+function getEyesInstance() {
+
+    var eyes = new Eyes();
+
+    //retrieve apikey from config file in the project root as defined by the user
+    eyes.setApiKey(eyeskey);
+
+    return eyes;
+
+
 }
 
 function consoleInfo() {
@@ -78,6 +100,7 @@ function createWorld() {
 
     var runtime = {
         driver: null,               // the browser object
+        eyes: null,
         selenium: selenium,         // the raw nodejs selenium driver
         By: selenium.By,            // in keeping with Java expose selenium By
         by: selenium.By,            // provide a javascript lowercase version
@@ -113,7 +136,7 @@ function importSupportObjects() {
 
             if (fs.existsSync(itemPath)) {
 
-                var dir = requireDir(itemPath, { camelcase: true });
+                var dir = requireDir(itemPath, {camelcase: true});
 
                 merge(allDirs, dir);
             }
@@ -131,7 +154,7 @@ function importSupportObjects() {
     if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
         // require all page objects using camel case as object names
-        global.page = requireDir(global.pageObjectPath, { camelcase: true });
+        global.page = requireDir(global.pageObjectPath, {camelcase: true});
     }
 
     // add helpers
@@ -150,12 +173,14 @@ module.exports = function () {
     // set the default timeout for all tests
     this.setDefaultTimeout(global.DEFAULT_TIMEOUT);
 
-    // create the driver before scenario if it's not instantiated
-    this.registerHandler('BeforeScenario', function(scenario) {
+    // create the driver and applitools eyes before scenario if it's not instantiated
+    this.registerHandler('BeforeScenario', function (scenario) {
 
-        if (!global.driver) {
+        if (!global.driver || !global.eyes) {
             global.driver = getDriverInstance();
+            global.eyes = getEyesInstance();
         }
+
     });
 
     this.registerHandler('AfterFeatures', function (features, done) {
@@ -197,14 +222,17 @@ module.exports = function () {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
 
-                return driver.close().then(function() {
+                return driver.close().then(function () {
                     return driver.quit();
+                }).then(function () {
+                    // If the test was aborted before eyes.close was called ends the test as aborted.
+                    return eyes.abortIfNotClosed();
                 });
-            });
+            })
         }
 
-        return driver.close().then(function() {
+        return driver.close().then(function () {
             return driver.quit();
-        });
+        })
     });
 };

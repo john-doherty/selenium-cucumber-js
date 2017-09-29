@@ -53,19 +53,22 @@ program
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .parse(process.argv);
 
-program.on('--help', function() {
+program.on('--help', function () {
     console.log('  For more details please visit https://github.com/john-doherty/selenium-cucumber-js#readme\n');
 });
 
 // store browserName globally (used within world.js to build driver)
 global.browserName = program.browser;
 
+// store Eyes Api globally (used within world.js to set Eyes)
+global.eyeskey = config.eye_key
+
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(program.pageObjects);
 
 // used within world.js to output reports
 global.reportsPath = path.resolve(program.reports);
-if (!fs.existsSync(program.reports)){
+if (!fs.existsSync(program.reports)) {
     fs.makeTreeSync(program.reports);
 }
 
@@ -82,7 +85,7 @@ global.junitPath = path.resolve(program.junit || program.reports);
 global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
 
 // used within world.js to import shared objects into the shared namespace
-global.sharedObjectPaths = program.sharedObjects.map(function(item) {
+global.sharedObjectPaths = program.sharedObjects.map(function (item) {
     return path.resolve(item);
 });
 
@@ -111,8 +114,8 @@ process.argv.push(path.resolve(program.steps));
 // add tag
 if (program.tags) {
     program.tags.forEach(function (tag) {
-      process.argv.push('-t');
-      process.argv.push(tag);
+        process.argv.push('-t');
+        process.argv.push(tag);
     })
 }
 

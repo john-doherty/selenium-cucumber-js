@@ -234,6 +234,58 @@ module.exports = function () {
 };
 ```
 
+### Applitools Eyes!
+The Applitools Eyes Selenium JavaScript SDK allows you to easily add visual checkpoints to your JavaScript Selenium tests. 
+It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Eyes server for validation and failing the test in case differences are found.
+To use Applitools Eyes specifying an ApiKey from Aplitools using a `selenium-cucumber-js.json` file at the root of your project
+
+For example the following configuration could be used with an increased timeout which allows enough time for viusual checks:
+
+```json
+{
+  "eye_key": "Your_Api_Key",
+  "timeout": 50000
+}
+```
+
+And its usage within page Objects:
+
+```js
+module.exports = {
+
+    url: 'https://applitools.com/helloworld',
+
+    elements: {
+        clickme: by.tagName('button'),
+        searchResultLink: by.css('div.g > h3 > a')
+    },
+
+    
+    applitools_Eyes_Example: function () {
+
+        // Start the test and set the browser's viewport size to 800x600.
+        eyes.open(driver, 'Hello World!', 'My first Javascript test!',
+            {width: 800, height: 600});
+
+        // Navigate the browser to the "hello world!" web-site.
+        driver.get(page.HelloWorld.elements.url);
+
+        // Visual checkpoint #1.
+        eyes.checkWindow('Main Page');
+
+        // Click the "Click me!" button.
+        driver.findElement(page.HelloWorld.elements.clickme).click();
+
+        // Visual checkpoint #2.
+        eyes.checkWindow('Click!');
+
+        // End the test.
+        eyes.close();
+    }
+};
+```
+
+
 ### Before/After hooks
 
 You can register before and after handlers for features and scenarios:
