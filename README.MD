@@ -1,6 +1,4 @@
-# selenium-cucumber-js
-
-[![Shippable branch](https://img.shields.io/shippable/5818b23bbd56670e00037040/master.svg)](https://app.shippable.com/projects/5818b23bbd56670e00037040) [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js) [![Linked In](https://img.shields.io/badge/Linked-In-blue.svg)](https://www.linkedin.com/in/john-i-doherty) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
+# selenium-cucumber-js [![Shippable branch](https://img.shields.io/shippable/5818b23bbd56670e00037040/master.svg)](https://app.shippable.com/projects/5818b23bbd56670e00037040) [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js) 
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
@@ -14,6 +12,7 @@ JavaScript browser automation framework using official [selenium-webdriver](http
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
   * [Shared objects](#shared-objects)
+  * [Visual Comparison](#visual-comparison)
   * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
@@ -234,12 +233,11 @@ module.exports = function () {
 };
 ```
 
-### Applitools Eyes!
-The Applitools Eyes Selenium JavaScript SDK allows you to easily add visual checkpoints to your JavaScript Selenium tests. 
-It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Eyes server for validation and failing the test in case differences are found.
-To use Applitools Eyes specifying an ApiKey from Aplitools using a `selenium-cucumber-js.json` file at the root of your project
+### Visual Comparison
 
-For example the following configuration could be used with an increased timeout which allows enough time for viusual checks:
+The `selenium-cucumber-js` framework uses [Applitools Eyes](https://applitools.com/) to add visual checkpoints to your JavaScript Selenium tests. It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Applitools Eyes server for validation and failing the test when differences are detected. To preform visual comparisons within your tests, obtain an [Applitools Eyes](https://applitools.com/) API Key and assign it to the `eye_key` property of the `selenium-cucumber-js.json` config file in the root of your project.
+
+For example the following configuration could be used with an increased timeout which allows enough time for visual checks:
 
 ```json
 {
@@ -260,7 +258,6 @@ module.exports = {
         searchResultLink: by.css('div.g > h3 > a')
     },
 
-    
     applitools_Eyes_Example: function () {
 
         // Start the test and set the browser's viewport size to 800x600.
@@ -284,7 +281,6 @@ module.exports = {
     }
 };
 ```
-
 
 ### Before/After hooks
 
