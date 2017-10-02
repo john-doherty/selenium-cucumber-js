@@ -176,9 +176,12 @@ module.exports = function () {
     // create the driver and applitools eyes before scenario if it's not instantiated
     this.registerHandler('BeforeScenario', function (scenario) {
 
-        if (!global.driver || !global.eyes) {
+        if (!global.driver) {
             global.driver = getDriverInstance();
-            global.eyes = getEyesInstance();
+        }
+        
+        if (eyeskey!== null){
+             global.eyes = getEyesInstance();
         }
 
     });
@@ -226,7 +229,10 @@ module.exports = function () {
                     return driver.quit();
                 }).then(function () {
                     // If the test was aborted before eyes.close was called ends the test as aborted.
-                    return eyes.abortIfNotClosed();
+                    if(eyeskey!==null){
+                        eyes.abortIfNotClosed();
+                    }
+               
                 });
             })
         }
