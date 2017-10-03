@@ -72,17 +72,21 @@ function getDriverInstance() {
 
 
 /**
- * Initialize the eyes SDK and set your private API key via the config file.*/
+ * Initialize the eyes SDK and set your private API key via the config file.
+ */
 function getEyesInstance() {
 
-    var eyes = new Eyes();
+    if (global.eyesKey) {
 
-    //retrieve apikey from config file in the project root as defined by the user
-    eyes.setApiKey(eyeskey);
+        var eyes = new Eyes();
 
-    return eyes;
+        // retrieve eyes api key from config file in the project root as defined by the user
+        eyes.setApiKey(global.eyesKey);
 
+        return eyes;
+    }
 
+    return null;
 }
 
 function consoleInfo() {
@@ -136,7 +140,7 @@ function importSupportObjects() {
 
             if (fs.existsSync(itemPath)) {
 
-                var dir = requireDir(itemPath, {camelcase: true});
+                var dir = requireDir(itemPath, { camelcase: true });
 
                 merge(allDirs, dir);
             }
@@ -154,7 +158,7 @@ function importSupportObjects() {
     if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
         // require all page objects using camel case as object names
-        global.page = requireDir(global.pageObjectPath, {camelcase: true});
+        global.page = requireDir(global.pageObjectPath, { camelcase: true });
     }
 
     // add helpers
@@ -178,9 +182,10 @@ module.exports = function () {
 
         if (!global.driver || !global.eyes) {
             global.driver = getDriverInstance();
+
+            // TOOD: this all feels a bit hacky, needs rethinking...
             global.eyes = getEyesInstance();
         }
-
     });
 
     this.registerHandler('AfterFeatures', function (features, done) {
@@ -224,11 +229,17 @@ module.exports = function () {
 
                 return driver.close().then(function () {
                     return driver.quit();
-                }).then(function () {
-                    // If the test was aborted before eyes.close was called ends the test as aborted.
-                    return eyes.abortIfNotClosed();
+                })
+                .then(function() {
+
+                    if (eyes) {
+                        // If the test was aborted before eyes.close was called ends the test as aborted.
+                        return eyes.abortIfNotClosed();
+                    }
+
+                    return Promise.resolve();
                 });
-            })
+            });
         }
 
         return driver.close().then(function () {

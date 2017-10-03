@@ -33,8 +33,9 @@
     "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
   },
   "engines": {
-    "node": ">= 6.9.0"
+    "node": "6.11.0"
   },
+  "engineStrict": true,
   "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
   "dependencies": {
     "chai": "3.5.0",

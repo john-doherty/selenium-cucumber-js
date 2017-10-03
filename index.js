@@ -12,14 +12,12 @@ function collectPaths(value, paths) {
 }
 
 function coerceInt(value, defaultValue) {
+
     var int = parseInt(value);
 
-    if (typeof int == 'number') {
-        return int;
-    }
-    else {
-        return defaultValue;
-    }
+    if (typeof int === 'number') return int;
+
+    return defaultValue;
 }
 
 var config = {
@@ -28,7 +26,7 @@ var config = {
     sharedObjects: './shared-objects',
     reports: './reports',
     browser: 'chrome',
-    timeout: 10000
+    timeout: 15000
 };
 
 var configFileName = path.resolve(process.cwd(), 'selenium-cucumber-js.json');
@@ -61,7 +59,7 @@ program.on('--help', function () {
 global.browserName = program.browser;
 
 // store Eyes Api globally (used within world.js to set Eyes)
-global.eyeskey = config.eye_key
+global.eyesKey = config.eye_key
 
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(program.pageObjects);
