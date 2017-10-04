@@ -179,9 +179,11 @@ module.exports = function () {
         if (!global.driver) {
             global.driver = getDriverInstance();
         }
-        
-        if (eyeskey!== null){
-             global.eyes = getEyesInstance();
+
+
+        if (!global.eyes && eyeskey !== undefined) {
+            global.eyes = getEyesInstance()
+
         }
 
     });
@@ -228,17 +230,19 @@ module.exports = function () {
                 return driver.close().then(function () {
                     return driver.quit();
                 }).then(function () {
-                    // If the test was aborted before eyes.close was called ends the test as aborted.
-                    if(eyeskey!==null){
+                    if (global.eyes) {
                         eyes.abortIfNotClosed();
                     }
-               
                 });
             })
         }
 
         return driver.close().then(function () {
             return driver.quit();
-        })
+        }).then(function () {
+            if (global.eyes) {
+                eyes.abortIfNotClosed();
+            }
+        });
     });
 };
