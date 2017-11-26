@@ -10,7 +10,7 @@ module.exports = {
      */
     loadPage: function(url, waitInSeconds) {
 
-        // use either passed in timeout or global 10 seconds default
+        // use either passed in timeout or global default
         var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;
 
         // load the url and wait for it to complete
@@ -23,20 +23,17 @@ module.exports = {
 
     /**
      * returns the value of an attribute on an element
-     * @param {string} selector - css selector used to find the element
+     * @param {string} htmlCssSelector - HTML css selector used to find the element
      * @param {string} attributeName - attribute name to retrieve
      * @returns {string} the value of the attribute or empty string if not found
      * @example
      *      helpers.getAttributeValue('body', 'class');
      */
-    getAttributeValue: function (selector, attributeName) {
+    getAttributeValue: function (htmlCssSelector, attributeName) {
 
         // get the element from the page
-        return driver.findElement(by.css(selector)).then(function(attributeValue) {
-            return attributeValue;
-        })
-        .catch(function() {
-            return '';
+        return driver.findElement(by.css(htmlCssSelector)).then(function(el) {
+            return el.getAttribute(attributeName);
         });
     },
 
@@ -127,6 +124,34 @@ module.exports = {
 
         // grab matching elements
         return driver.findElements(by.js(clickElementInDom, cssSelector, textToMatch));
+    },
+
+    /**
+     * Waits until a HTML attribute equals a particular value
+     * @param {string} elementSelector - HTML element CSS selector
+     * @param {string} attributeName - name of the attribute to inspect
+     * @param {string} attributeValue - value to wait for attribute to equal
+     * @param {integer} waitInSeconds - number of milliseconds to wait for page to load
+     * @returns {Promise} resolves if attribute eventually equals, otherwise rejects
+     * @example
+     *      helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5);
+     */
+    waitUntilAttributeEquals: function(elementSelector, attributeName, attributeValue, waitInSeconds) {
+
+        // use either passed in timeout or global default
+        var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;
+
+        // repeatedly execute the test until it's true or we timeout
+        return driver.wait(function() {
+
+            // get the html attribute value using another helper method
+            return helpers.getAttributeValue(elementSelector, attributeName).then(function(value) {
+
+                // inspect the value
+                return value === attributeValue;
+            });
+
+        }, timeout);
     }
 
 };
