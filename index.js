@@ -61,7 +61,7 @@ program.on('--help', function () {
 global.browserName = program.browser;
 
 // store Eyes Api globally (used within world.js to set Eyes)
-global.eyesKey = config.eye_key
+global.eyesKey = config.eye_key;
 
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(program.pageObjects);
@@ -116,7 +116,7 @@ if (program.tags) {
     program.tags.forEach(function (tag) {
         process.argv.push('-t');
         process.argv.push(tag);
-    })
+    });
 }
 
 // add strict option (fail if there are any undefined or pending steps)
