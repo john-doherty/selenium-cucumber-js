@@ -3,7 +3,7 @@ module.exports = {
     /**
      * returns a promise that is called when the url has loaded and the body element is present
      * @param {string} url - url to load
-     * @param {integer} waitInSeconds - number of milliseconds to wait for page to load
+     * @param {integer} waitInSeconds - number of seconds to wait for page to load
      * @returns {Promise} resolved when url has loaded otherwise rejects
      * @example
      *      helpers.loadPage('http://www.google.com');
@@ -136,10 +136,10 @@ module.exports = {
      * @example
      *      helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5);
      */
-    waitUntilAttributeEquals: function(elementSelector, attributeName, attributeValue, waitInSeconds) {
+    waitUntilAttributeEquals: function(elementSelector, attributeName, attributeValue, waitInMilliseconds) {
 
         // use either passed in timeout or global default
-        var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;
+        var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
 
         // repeatedly execute the test until it's true or we timeout
         return driver.wait(function() {
