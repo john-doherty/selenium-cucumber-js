@@ -131,7 +131,7 @@ module.exports = {
      * @param {string} elementSelector - HTML element CSS selector
      * @param {string} attributeName - name of the attribute to inspect
      * @param {string} attributeValue - value to wait for attribute to equal
-     * @param {integer} waitInSeconds - number of milliseconds to wait for page to load
+     * @param {integer} waitInMilliseconds - number of milliseconds to wait for page to load
      * @returns {Promise} resolves if attribute eventually equals, otherwise rejects
      * @example
      *      helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5);
