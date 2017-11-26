@@ -1,4 +1,4 @@
-# selenium-cucumber-js [![Shippable branch](https://img.shields.io/shippable/5818b23bbd56670e00037040/master.svg)](https://app.shippable.com/projects/5818b23bbd56670e00037040) [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js) 
+# selenium-cucumber-js [![Shippable branch](https://img.shields.io/shippable/5818b23bbd56670e00037040/master.svg)](https://app.shippable.com/projects/5818b23bbd56670e00037040) [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js) [![Twitter Follow](https://img.shields.io/twitter/follow/CambridgeMVP.svg?style=social&label=Twitter&style=plastic)](https://twitter.com/CambridgeMVP)
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
@@ -12,6 +12,7 @@ JavaScript browser automation framework using official [selenium-webdriver](http
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
   * [Shared objects](#shared-objects)
+  * [Helpers](#helpers)
   * [Visual Comparison](#visual-comparison)
   * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
@@ -231,6 +232,36 @@ module.exports = function () {
         driver.findElement(by.name('pass')).sendKeys(shared.testData.password);
     });
 };
+```
+
+### Helpers
+
+`selenium-cucumber-js` contains a few helper methods to make working with selenium a bit easier, those methods are:
+
+```js
+// Load a URL, returning only when the <body> tag is present
+helpers.loadPage('http://www.google.com');
+
+// get the value of a HTML attribute
+helpers.getAttributeValue('body', 'class');
+
+// get a list of elements matching a query selector who's inner text matches param.
+helpers.getElementsContainingText('nav[role="navigation"] ul li a', 'Safety Boots')
+
+// get first elements matching a query selector who's inner text matches textToMatch param
+helpers.getFirstElementContainingText('nav[role="navigation"] ul li a', 'Safety Boots').click();
+
+// click element(s) that are not visible (useful in situations where a menu needs a hover before a child link appears)
+helpers.clickHiddenElement('nav[role="navigation"] ul li a','Safety Boots');
+
+// wait until a HTML attribute equals a particular value
+helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5000);
+
+// wait until a HTML attribute exists
+helpers.waitUntilAttributeExists('html', 'data-busy', 5000);
+
+// wait until a HTML attribute no longer exists
+helpers.waitUntilAttributeDoesNotExists('html', 'data-busy', 5000);
 ```
 
 ### Visual Comparison

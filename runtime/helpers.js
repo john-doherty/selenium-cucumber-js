@@ -134,24 +134,87 @@ module.exports = {
      * @param {integer} waitInMilliseconds - number of milliseconds to wait for page to load
      * @returns {Promise} resolves if attribute eventually equals, otherwise rejects
      * @example
-     *      helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5);
+     *      helpers.waitUntilAttributeEquals('html', 'data-busy', 'false', 5000);
      */
     waitUntilAttributeEquals: function(elementSelector, attributeName, attributeValue, waitInMilliseconds) {
 
         // use either passed in timeout or global default
         var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
 
+        // readable error message
+        var timeoutMessage = attributeName + ' does not equal ' + attributeValue + ' after ' + waitInMilliseconds + ' milliseconds';
+
         // repeatedly execute the test until it's true or we timeout
         return driver.wait(function() {
 
-            // get the html attribute value using another helper method
+            // get the html attribute value using helper method
             return helpers.getAttributeValue(elementSelector, attributeName).then(function(value) {
 
                 // inspect the value
                 return value === attributeValue;
             });
 
-        }, timeout);
+        }, timeout, timeoutMessage);
+    },
+
+    /**
+     * Waits until a HTML attribute exists
+     * @param {string} elementSelector - HTML element CSS selector
+     * @param {string} attributeName - name of the attribute to inspect
+     * @param {integer} waitInMilliseconds - number of milliseconds to wait for page to load
+     * @returns {Promise} resolves if attribute exists within timeout, otherwise rejects
+     * @example
+     *      helpers.waitUntilAttributeExists('html', 'data-busy', 5000);
+     */
+    waitUntilAttributeExists: function(elementSelector, attributeName, waitInMilliseconds) {
+
+        // use either passed in timeout or global default
+        var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
+
+        // readable error message
+        var timeoutMessage = attributeName + ' does not exists after ' + waitInMilliseconds + ' milliseconds';
+
+        // repeatedly execute the test until it's true or we timeout
+        return driver.wait(function() {
+
+            // get the html attribute value using helper method
+            return helpers.getAttributeValue(elementSelector, attributeName).then(function(value) {
+
+                // attribute exists if value is not null
+                return value !== null;
+            });
+
+        }, timeout, timeoutMessage);
+    },
+
+    /**
+     * Waits until a HTML attribute no longer exists
+     * @param {string} elementSelector - HTML element CSS selector
+     * @param {string} attributeName - name of the attribute to inspect
+     * @param {integer} waitInMilliseconds - number of milliseconds to wait for page to load
+     * @returns {Promise} resolves if attribute is removed within timeout, otherwise rejects
+     * @example
+     *      helpers.waitUntilAttributeDoesNotExists('html', 'data-busy', 5000);
+     */
+    waitUntilAttributeDoesNotExists: function(elementSelector, attributeName, waitInMilliseconds) {
+
+        // use either passed in timeout or global default
+        var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
+
+        // readable error message
+        var timeoutMessage = attributeName + ' still exists after ' + waitInMilliseconds + ' milliseconds';
+
+        // repeatedly execute the test until it's true or we timeout
+        return driver.wait(function() {
+
+            // get the html attribute value using helper method
+            return helpers.getAttributeValue(elementSelector, attributeName).then(function(value) {
+
+                // attribute exists if value is not null
+                return value === null;
+            });
+
+        }, timeout, timeoutMessage);
     }
 
 };
