@@ -264,6 +264,12 @@ helpers.waitUntilAttributeExists('html', 'data-busy', 5000);
 
 // wait until a HTML attribute no longer exists
 helpers.waitUntilAttributeDoesNotExists('html', 'data-busy', 5000);
+
+// get the content value of a :before pseudo element
+helpers.getPseudoElementBeforeValue('body header');
+
+// get the content value of a :after pseudo element
+helpers.getPseudoElementAfterValue('body header');
 ```
 
 ### Visual Comparison

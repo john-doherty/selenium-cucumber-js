@@ -215,6 +215,49 @@ module.exports = {
             });
 
         }, timeout, timeoutMessage);
-    }
+    },
 
+    /**
+     * Get the content value of a :before pseudo element
+     * @param {string} cssSelector - css selector of element to inspect
+     * @returns {Promise} executes .then with value
+     * @example
+     *      helpers.getPseudoElementBeforeValue('body header').then(function(value) {
+     *          console.log(value);
+     *      });
+     */
+    getPseudoElementBeforeValue: function(cssSelector) {
+
+        function getBeforeContentValue(qs) {
+
+            var el = document.querySelector(qs);
+            var styles = el ? window.getComputedStyle(el, ':before') : null;
+
+            return styles ? styles.getPropertyValue('content') : '';
+        }
+
+        return driver.executeScript(getBeforeContentValue, cssSelector);
+    },
+
+    /**
+     * Get the content value of a :after pseudo element
+     * @param {string} cssSelector - css selector of element to inspect
+     * @returns {Promise} executes .then with value
+     * @example
+     *      helpers.getPseudoElementAfterValue('body header').then(function(value) {
+     *          console.log(value);
+     *      });
+     */
+    getPseudoElementAfterValue: function(cssSelector) {
+
+        function getAfterContentValue(qs) {
+
+            var el = document.querySelector(qs);
+            var styles = el ? window.getComputedStyle(el, ':after') : null;
+
+            return styles ? styles.getPropertyValue('content') : '';
+        }
+
+        return driver.executeScript(getAfterContentValue, cssSelector);
+    }
 };
