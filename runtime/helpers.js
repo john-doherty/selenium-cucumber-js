@@ -60,7 +60,7 @@ module.exports = {
             var elements = document.querySelectorAll(query);
 
             for (var i = 0, l = elements.length; i < l; i++) {
-                if (elements[i][txtProp] === content) {
+                if (elements[i][txtProp].trim() === content.trim()) {
                     results.push(elements[i]);
                 }
             }
