@@ -248,10 +248,10 @@ helpers.loadPage('http://www.google.com');
 helpers.getAttributeValue('body', 'class');
 
 // get a list of elements matching a query selector who's inner text matches param.
-helpers.getElementsContainingText('nav[role="navigation"] ul li a', 'Safety Boots')
+helpers.getElementsContainingText('nav[role="navigation"] ul li a', 'Safety Boots');
 
 // get first elements matching a query selector who's inner text matches textToMatch param
-helpers.getFirstElementContainingText('nav[role="navigation"] ul li a', 'Safety Boots').click();
+helpers.getFirstElementContainingText('nav[role="navigation"] ul li a', 'Safety Boots');
 
 // click element(s) that are not visible (useful in situations where a menu needs a hover before a child link appears)
 helpers.clickHiddenElement('nav[role="navigation"] ul li a','Safety Boots');
