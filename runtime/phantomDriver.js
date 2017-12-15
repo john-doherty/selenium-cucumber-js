@@ -13,7 +13,8 @@ module.exports = function() {
         browserName: 'phantomjs',
         javascriptEnabled: true,
         acceptSslCerts: true,
-        'phantomjs.binary.path': phantomjs.path
+        'phantomjs.binary.path': phantomjs.path,
+        'phantomjs.cli.args': '--ignore-ssl-errors=true'
     }).build();
 
     driver.manage().window().maximize();
