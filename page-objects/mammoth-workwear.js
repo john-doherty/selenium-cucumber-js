@@ -19,7 +19,7 @@ module.exports = {
 
     titleContains: function(expectedTitle) {
 
-        return driver.getTitle(function(pageTitle) {
+        return driver.getTitle().then(function(pageTitle) {
             expect(pageTitle).to.contain(expectedTitle);
         });
     }
