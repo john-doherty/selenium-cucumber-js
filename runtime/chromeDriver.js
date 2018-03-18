@@ -1,4 +1,5 @@
 'use strict';
+
 var chromedriver = require('chromedriver');
 var selenium = require('selenium-webdriver');
 
@@ -16,7 +17,7 @@ module.exports = function() {
             args: ['start-maximized']
         },
         path: chromedriver.path
-        }).build();
+    }).build();
 
     driver.manage().window().maximize();
 
