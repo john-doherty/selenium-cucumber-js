@@ -182,7 +182,7 @@ module.exports = {
      * @param {string} searchQuery
      * @returns {Promise} a promise to enter the search values
      */
-    preformSearch: function (searchQuery) {
+    performSearch: function (searchQuery) {
 
         var selector = page.googleSearch.elements.searchInput;
 
@@ -201,7 +201,7 @@ this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
     return helpers.loadPage('http://www.google.com').then(function() {
 
         // use a method on the page object which also returns a promise
-        return page.googleSearch.preformSearch(searchQuery);
+        return page.googleSearch.performSearch(searchQuery);
     })
 });
 ```
@@ -274,7 +274,7 @@ helpers.getPseudoElementAfterValue('body header');
 
 ### Visual Comparison
 
-The `selenium-cucumber-js` framework uses [Applitools Eyes](https://applitools.com/) to add visual checkpoints to your JavaScript Selenium tests. It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Applitools Eyes server for validation and failing the test when differences are detected. To preform visual comparisons within your tests, obtain an [Applitools Eyes](https://applitools.com/) API Key and assign it to the `eye_key` property of the `selenium-cucumber-js.json` config file in the root of your project.
+The `selenium-cucumber-js` framework uses [Applitools Eyes](https://applitools.com/) to add visual checkpoints to your JavaScript Selenium tests. It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Applitools Eyes server for validation and failing the test when differences are detected. To perform visual comparisons within your tests, obtain an [Applitools Eyes](https://applitools.com/) API Key and assign it to the `eye_key` property of the `selenium-cucumber-js.json` config file in the root of your project.
 
 For example the following configuration could be used with an increased timeout which allows enough time for visual checks:
 
