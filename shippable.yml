@@ -7,7 +7,7 @@ addons:
     firefox: "57.0"
 
 env:
-  globali:
+  global:
     - CHROME_VERSION=google-chrome-stable
     - DBUS_SESSION_BUS_ADDRESS=/dev/null
     - NODE_ENV=test
