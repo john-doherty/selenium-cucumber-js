@@ -4,10 +4,10 @@ node_js:
   - 6.9.0
 
 addons:
-    firefox: "49.0"
+    firefox: "57.0"
 
 env:
-  global:
+  globali:
     - CHROME_VERSION=google-chrome-stable
     - DBUS_SESSION_BUS_ADDRESS=/dev/null
     - NODE_ENV=test

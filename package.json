@@ -51,11 +51,11 @@
     "electron-prebuilt": "^1.4.13",
     "eyes.selenium": "0.0.72",
     "fs-plus": "2.9.1",
-    "geckodriver": "1.1.2",
+    "geckodriver": "^1.12.2",
     "merge": "1.2.0",
     "phantomjs-prebuilt": "2.1.12",
     "require-dir": "0.3.2",
-    "selenium-webdriver": "3.0.0"
+    "selenium-webdriver": "3.5.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

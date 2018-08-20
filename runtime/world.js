@@ -227,23 +227,16 @@ module.exports = function () {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
 
-                return driver.close().then(function () {
-                    return driver.quit();
-                })
-                .then(function() {
-
+                return driver.close().then(function() {
                     if (eyes) {
                         // If the test was aborted before eyes.close was called ends the test as aborted.
                         return eyes.abortIfNotClosed();
                     }
-
                     return Promise.resolve();
                 });
             });
         }
 
-        return driver.close().then(function () {
-            return driver.quit();
-        })
+        return driver.close()
     });
 };
