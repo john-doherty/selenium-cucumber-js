@@ -219,24 +219,33 @@ module.exports = function () {
 
     // executed after each scenario (always closes the browser to ensure fresh tests)
     this.After(function (scenario) {
-
         if (scenario.isFailed() && !global.noScreenshot) {
-
             // add a screenshot to the error report
             return driver.takeScreenshot().then(function (screenShot) {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+                // firefox quits on driver.close on the last window
+                return driver.close().then(function () {
+                    if (browserName !== 'firefox'){
+                        return driver.quit();
+                    }
+                })
+                .then(function() {
 
-                return driver.close().then(function() {
                     if (eyes) {
                         // If the test was aborted before eyes.close was called ends the test as aborted.
                         return eyes.abortIfNotClosed();
                     }
+
                     return Promise.resolve();
                 });
             });
         }
-
-        return driver.close()
+        // firefox quits on driver.close on the last window
+        return driver.close().then(function () {
+            if (browserName !== 'firefox'){
+                return driver.quit();
+            }
+        })
     });
 };
