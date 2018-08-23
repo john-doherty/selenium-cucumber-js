@@ -48,7 +48,7 @@ program
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
     .option('-t, --tags <tagName>', 'name of tag to run', collectPaths, [])
-    .option('-f, --featureFile <path>', 'a specific feature file to run')
+    .option('-f, --featureFiles <paths>', 'comma-separated list of feature files to run')
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .parse(process.argv);
@@ -92,9 +92,13 @@ global.sharedObjectPaths = program.sharedObjects.map(function (item) {
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);
 
-// allow a specific feature file to be executed
-if (program.featureFile) {
-    process.argv.push(program.featureFile);
+// allow specific feature files to be executed
+if (program.featureFiles) {
+    var splitFeatureFiles = program.featureFiles.split(',');
+
+    splitFeatureFiles.forEach(function (feature) {
+        process.argv.push(feature);
+    });
 }
 
 // add switch to tell cucumber to produce json report files
