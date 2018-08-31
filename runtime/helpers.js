@@ -259,5 +259,17 @@ module.exports = {
         }
 
         return driver.executeScript(getAfterContentValue, cssSelector);
+    },
+
+    clearCookies: function() {
+        return driver.manage().deleteAllCookies();
+    },
+
+    clearStorages: function() {
+        return driver.executeScript('window.localStorage.clear(); window.sessionStorage.clear();')
+    },
+
+    clearCookiesAndStorages: function() {
+        return helpers.clearCookies().then(helpers.clearStorages());
     }
 };

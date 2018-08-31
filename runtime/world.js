@@ -168,20 +168,23 @@ function importSupportObjects() {
     global.helpers = require('../runtime/helpers.js');
 }
 
-function teardownBrowser(driver) {
+function closeBrowser() {
+    // firefox quits on driver.close on the last window
+    return driver.close().then(function () {
+        if (browserName !== 'firefox'){
+            return driver.quit();
+        }
+    });
+}
+
+function teardownBrowser() {
     switch (browserTeardownStrategy) {
         case 'none':
-            return new Promise(
-                 function(resolve, reject) {});
+            return Promise.resolve();
         case 'clear':
-            return driver.manage().deleteAllCookies();
+            return helpers.clearCookiesAndStorages();
         default:
-            // firefox quits on driver.close on the last window
-            return driver.close().then(function () {
-                if (browserName !== 'firefox'){
-                    return driver.quit();
-                }
-            });
+            return closeBrowser(driver);
     }
 }
 
@@ -235,18 +238,11 @@ module.exports = function () {
             fs.writeFileSync(junitOutputPath, xmlReport);
         }
 
-        console.log(browserTeardownStrategy);
-
         if (browserTeardownStrategy !== 'always') {
-            driver.close().then(function () {
-                if (browserName !== 'firefox'){
-                    return driver.quit();
-                }
-                done();
-            });
+            closeBrowser().then(() => done());
         }
         else {
-            done();
+            new Promise(() => {}).then(() => done());
         }
     });
 
@@ -258,16 +254,14 @@ module.exports = function () {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
 
-                teardownBrowser(driver).then(function() {
+                return teardownBrowser().then(function() {
                     if (eyes) {
                         // If the test was aborted before eyes.close was called ends the test as aborted.
                         return eyes.abortIfNotClosed();
                     }
-
-                    return Promise.resolve();
                 });
             });
         }
-        return teardownBrowser(driver);
+        return teardownBrowser();
     });
 };
