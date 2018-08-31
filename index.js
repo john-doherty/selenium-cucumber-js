@@ -45,7 +45,7 @@ program
     .option('-p, --pageObjects <path>', 'path to page objects. defaults to ' + config.pageObjects, config.pageObjects)
     .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ' + config.sharedObjects, collectPaths, [config.sharedObjects])
     .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
-    .option('-k, --browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "none"', config.browserTeardownStrategy)
+    .option('-k, --browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "always"', config.browserTeardownStrategy)
     .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports, config.reports)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
