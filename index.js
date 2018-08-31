@@ -28,6 +28,7 @@ var config = {
     sharedObjects: './shared-objects',
     reports: './reports',
     browser: 'chrome',
+    browserTeardownStrategy: 'always',
     timeout: 15000
 };
 
@@ -44,6 +45,7 @@ program
     .option('-p, --pageObjects <path>', 'path to page objects. defaults to ' + config.pageObjects, config.pageObjects)
     .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ' + config.sharedObjects, collectPaths, [config.sharedObjects])
     .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
+    .option('-k, --browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "none"', config.browserTeardownStrategy)
     .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports, config.reports)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
@@ -59,6 +61,7 @@ program.on('--help', function () {
 
 // store browserName globally (used within world.js to build driver)
 global.browserName = program.browser;
+global.browserTeardownStrategy = program.browserTeardown;
 
 // store Eyes Api globally (used within world.js to set Eyes)
 global.eyesKey = config.eye_key;

@@ -118,6 +118,9 @@ function createWorld() {
 
     // expose properties to step definition methods via global variables
     Object.keys(runtime).forEach(function (key) {
+        if (key === 'driver' && browserTeardownStrategy !== 'always') {
+            return;
+        }
 
         // make property/method available as a global (no this. prefix required)
         global[key] = runtime[key];
@@ -165,6 +168,23 @@ function importSupportObjects() {
     global.helpers = require('../runtime/helpers.js');
 }
 
+function teardownBrowser(driver) {
+    switch (browserTeardownStrategy) {
+        case 'none':
+            return new Promise(
+                 function(resolve, reject) {});
+        case 'clear':
+            return driver.manage().deleteAllCookies();
+        default:
+            // firefox quits on driver.close on the last window
+            return driver.close().then(function () {
+                if (browserName !== 'firefox'){
+                    return driver.quit();
+                }
+            });
+    }
+}
+
 // export the "World" required by cucumber to allow it to expose methods within step def's
 module.exports = function () {
 
@@ -180,10 +200,11 @@ module.exports = function () {
     // create the driver and applitools eyes before scenario if it's not instantiated
     this.registerHandler('BeforeScenario', function (scenario) {
 
-        if (!global.driver || !global.eyes) {
+        if (!global.driver) {
             global.driver = getDriverInstance();
+        }
 
-            // TOOD: this all feels a bit hacky, needs rethinking...
+        if (!global.eyes) {
             global.eyes = getEyesInstance();
         }
     });
@@ -214,7 +235,19 @@ module.exports = function () {
             fs.writeFileSync(junitOutputPath, xmlReport);
         }
 
-        done();
+        console.log(browserTeardownStrategy);
+
+        if (browserTeardownStrategy !== 'always') {
+            driver.close().then(function () {
+                if (browserName !== 'firefox'){
+                    return driver.quit();
+                }
+                done();
+            });
+        }
+        else {
+            done();
+        }
     });
 
     // executed after each scenario (always closes the browser to ensure fresh tests)
@@ -224,14 +257,8 @@ module.exports = function () {
             return driver.takeScreenshot().then(function (screenShot) {
 
                 scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
-                // firefox quits on driver.close on the last window
-                return driver.close().then(function () {
-                    if (browserName !== 'firefox'){
-                        return driver.quit();
-                    }
-                })
-                .then(function() {
 
+                teardownBrowser(driver).then(function() {
                     if (eyes) {
                         // If the test was aborted before eyes.close was called ends the test as aborted.
                         return eyes.abortIfNotClosed();
@@ -241,11 +268,6 @@ module.exports = function () {
                 });
             });
         }
-        // firefox quits on driver.close on the last window
-        return driver.close().then(function () {
-            if (browserName !== 'firefox'){
-                return driver.quit();
-            }
-        })
+        return teardownBrowser(driver);
     });
 };
