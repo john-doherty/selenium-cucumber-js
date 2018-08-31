@@ -242,7 +242,7 @@ module.exports = function () {
             closeBrowser().then(() => done());
         }
         else {
-            new Promise(() => {}).then(() => done());
+            new Promise((resolve) => resolve(done()));
         }
     });
 
