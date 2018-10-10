@@ -41,19 +41,20 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
 ### Options
 
 ```bash
--h, --help                   output usage information
--V, --version                output the version number
--s, --steps <path>           path to step definitions. defaults to ./step-definitions
--p, --pageObjects <path>     path to page objects. defaults to ./page-objects
--o, --sharedObjects [paths]  path to shared objects (repeatable). defaults to ./shared-objects
--b, --browser <path>         name of browser to use. defaults to chrome
--r, --reports <path>         output path to save reports. defaults to ./reports
--d, --disableLaunchReport    disable the auto opening the browser with test report
--j, --junit <path>           output path to save junit-report.xml defaults to ./reports
--t, --tags <tagName>         name of tag to run
--f, --featureFile <path>     a specific feature file to run
--x, --timeOut <n>            steps definition timeout in milliseconds. defaults to 10 seconds
--n, --noScreenshot           disable auto capturing of screenshots when an error is encountered
+-h, --help                          output usage information
+-V, --version                       output the version number
+-s, --steps <path>                  path to step definitions. defaults to ./step-definitions
+-p, --pageObjects <path>            path to page objects. defaults to ./page-objects
+-o, --sharedObjects [paths]         path to shared objects (repeatable). defaults to ./shared-objects
+-b, --browser <path>                name of browser to use. defaults to chrome
+-k, --browser-teardown <optional>   browser teardown strategy after every scenario (always, clear, none). defaults to "always"
+-r, --reports <path>                output path to save reports. defaults to ./reports
+-d, --disableLaunchReport           disable the auto opening the browser with test report
+-j, --junit <path>                  output path to save junit-report.xml defaults to ./reports
+-t, --tags <tagName>                name of tag to run
+-f, --featureFile <path>            a specific feature file to run
+-x, --timeOut <n>                   steps definition timeout in milliseconds. defaults to 10 seconds
+-n, --noScreenshot                  disable auto capturing of screenshots when an error is encountered
 ```
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
@@ -112,7 +113,16 @@ Feature: Searching for vote cards app
     Then I should see some results
 ```
 
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment.
+### Browser teardown strategy
+
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. But
+you can change this behavior with the "-k" or the "--browser-teardown" parameter.
+
+Value      |  Description
+---------- | ---------------
+`always`   | the browser automatically closes (default)
+`clear`    | the browser automatically clears cookies, local and session storages
+`none`     | the browser does nothing
 
 ### Step definitions
 
@@ -270,6 +280,15 @@ helpers.getPseudoElementBeforeValue('body header');
 
 // get the content value of a :after pseudo element
 helpers.getPseudoElementAfterValue('body header');
+
+// clear the cookies
+helpers.clearCookies();
+
+// clear both local and session storages
+helpers.clearStorages();
+
+// clear both cookies and storages
+helpers.clearCookiesAndStorages('body header');
 ```
 
 ### Visual Comparison
