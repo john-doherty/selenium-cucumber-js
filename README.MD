@@ -169,7 +169,7 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 ### Page objects
 
-Page objects are accessible via a global ```page``` object and are automatically loaded from ```./page-objects``` _(or the path specified using the ```-p``` switch)_. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```page.googleSearch```.
+Page objects are accessible via a global ```page``` object and are automatically loaded from ```./page-objects``` _(or the path specified using the ```-p``` switch)_. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```page.googleSearch```. You can also use subdirectories, for example ```./page-objects/dir/google-search.js``` becomes ```page.dir.googleSearch```.
 
 Page objects also have access to the same runtime variables available to step definitions.
 
@@ -218,7 +218,8 @@ this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
 ### Shared objects
 
-Shared objects allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./shared-objects``` _(or the path specified using the ```-o``` switch)_ and made available via a camel-cased version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```.
+Shared objects allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./shared-objects``` _(or the path specified using the ```-o``` switch)_ and made available via a camel-cased version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```. You can also use subdirectories, for example ```./shared-objects/dir/test-data.js``` becomes ```shared.dir.testData```.
+
 
 Shared objects also have access to the same runtime variables available to step definitions.
 

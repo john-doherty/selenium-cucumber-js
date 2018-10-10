@@ -143,7 +143,7 @@ function importSupportObjects() {
 
             if (fs.existsSync(itemPath)) {
 
-                var dir = requireDir(itemPath, { camelcase: true });
+                var dir = requireDir(itemPath, { camelcase: true, recurse: true });
 
                 merge(allDirs, dir);
             }
@@ -161,7 +161,7 @@ function importSupportObjects() {
     if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
 
         // require all page objects using camel case as object names
-        global.page = requireDir(global.pageObjectPath, { camelcase: true });
+        global.page = requireDir(global.pageObjectPath, { camelcase: true, recurse: true });
     }
 
     // add helpers
