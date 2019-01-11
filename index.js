@@ -53,6 +53,7 @@ program
     .option('-f, --featureFiles <paths>', 'comma-separated list of feature files to run')
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
+    .option('-w, --worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -124,6 +125,11 @@ if (program.tags) {
         process.argv.push('-t');
         process.argv.push(tag);
     });
+}
+
+if (program.worldParameters){
+    process.argv.push('--world-parameters');
+    process.argv.push(program.worldParameters);
 }
 
 // add strict option (fail if there are any undefined or pending steps)
