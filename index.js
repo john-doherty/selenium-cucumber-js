@@ -26,6 +26,7 @@ var config = {
     steps: './step-definitions',
     pageObjects: './page-objects',
     sharedObjects: './shared-objects',
+    featureFiles: './features',
     reports: './reports',
     browser: 'chrome',
     browserTeardownStrategy: 'always',
@@ -50,7 +51,7 @@ program
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
     .option('-t, --tags <tagName>', 'name of tag to run', collectPaths, [])
-    .option('-f, --featureFiles <paths>', 'comma-separated list of feature files to run')
+    .option('-f, --featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .parse(process.argv);
