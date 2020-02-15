@@ -218,6 +218,80 @@ module.exports = {
     },
 
     /**
+     * Waits until an css element exists and returns it
+     * @param {string} elementSelector - HTML element CSS selector
+     * @param {integer} waitInMilliseconds - (optional) number of milliseconds to wait for the element
+     * @returns {Promise} a promisse that will resolve if the element is found within timeout
+     * @example
+     *      helpers.waitForCssXpathElement('#login-button', 5000);
+     */
+    waitForCssXpathElement: function (elementSelector, waitInMilliseconds){
+        // use either passed in timeout or global default
+        var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
+
+        // if the locator starts with '//' assume xpath, otherwise css
+        var selector = (localizador.indexOf('//') === 0) ? "xpath" : "css";
+
+        // readable error message
+        var timeoutMessage = attributeName + ' still exists after ' + waitInMilliseconds + ' milliseconds';
+
+        // wait until the element exists
+        return driver.wait(selenium.until.elementLocated({ [selector]: elementSelector }), timeout, timeoutMessage);
+    },
+
+    /**
+     * Scroll until element is visible
+     * @param {WebElement} elemento - selenium web element
+     * @returns {Promise} a promise that will resolve to the scripts return value.
+     * @example
+     *      helpers.scrollToElement(webElement);
+     */
+    scrollToElement: function (element) {
+        return driver.executeScript('return arguments[0].scrollIntoView(false);', element);
+    },
+
+    /**
+    * Select a value inside a dropdown list by its text
+    * @param {string} elementSelector - css or xpath selector
+    * @param {string} optionName - name of the option to be chosen
+    * @param {Promise} a promise that will resolve when the click command has completed
+    * @example
+    *      helpers.selectByVisibleText('#country', 'Brazil');
+    */
+    selectDropdownValueByVisibleText: async function (elementSelector, optionName) {
+        var select = await helpers.waitForCssXpathElement(elementSelector);
+        var selectElements = await select.findElements({ css: 'option' });
+        var options = [];
+
+        for (var option of selectElements) {
+            options.push((await option.getText()).toUpperCase());
+        }
+        optionName = optionName.toUpperCase();
+
+        return selectElements[options.indexOf(optionName)].click();
+    },
+
+    /**
+     * Awaits and returns an array of all windows opened
+     * @param {integer} waitInMilliseconds - (optional) number of milliseconds to wait for the result
+     * @returns {Promise} a promise that will resolve with an array of window handles.
+     * @example
+     *      helpers.waitForNewWindows();
+     */
+    waitForNewWindows: async function (waitInMilliseconds) {
+        // use either passed in timeout or global default
+        var timeout = waitInMilliseconds || DEFAULT_TIMEOUT;
+
+        var windows = [];
+        for (var i = 0; i < timeout; i += 1000) {
+            windows = await driver.getAllWindowHandles(); // procura por todas as windows abertas
+            if (windows.length > 1) return windows;
+
+            await driver.sleep(1000);
+        }
+    },
+
+    /**
      * Get the content value of a :before pseudo element
      * @param {string} cssSelector - css selector of element to inspect
      * @returns {Promise} executes .then with value
