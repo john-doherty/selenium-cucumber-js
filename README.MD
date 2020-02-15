@@ -479,7 +479,7 @@ node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions
 
 Visual Studio Code has also an extension for Cucumber (Gherkin) Language Support + Format + Steps/PageObjects Autocomplete. You can find how to install and use at [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete).
 
-Following the default structure, the `settings.json` should be look like this:
+Following the default structure, the `settings.json` should look like this:
 ```json
 {
     "cucumberautocomplete.steps": [
