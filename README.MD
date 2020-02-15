@@ -475,6 +475,28 @@ This can be achieved by restructuring your project to match the layout above _(n
 node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions -p ./features/page_objects -o ./features/shared_objects -r ./features/reports
 ```
 
+### VSCode Cucumber Plugin
+
+Visual Studio Code has also an extension for Cucumber (Gherkin) Language Support + Format + Steps/PageObjects Autocomplete. You can find how to install and use at [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete).
+
+Following the default structure, the `settings.json` should be look like this:
+```json
+{
+    "cucumberautocomplete.steps": [
+        "step-definitions/*.js"
+    ],
+    "cucumberautocomplete.syncfeatures": "features/*.feature",
+    "cucumberautocomplete.strictGherkinCompletion": false,
+    "cucumberautocomplete.onTypeFormat": true,
+    "editor.quickSuggestions": {
+        "comments": false,
+        "strings": true,
+        "other": true
+    },
+    "cucumberautocomplete.gherkinDefinitionPart": "(Given|When|Then)\\(",
+}
+```
+
 ## License
 
 Licensed under [ISC License](LICENSE) &copy; [John Doherty](http://www.johndoherty.info)
