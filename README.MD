@@ -290,6 +290,18 @@ helpers.clearStorages();
 
 // clear both cookies and storages
 helpers.clearCookiesAndStorages('body header');
+
+// waits until an element to exist and returns it
+helpers.waitForCssXpathElement('#login-button', 5000);
+
+// scroll until element is visible
+helpers.scrollToElement(webElement);
+
+// select a value inside a dropdown list by its text
+helpers.selectByVisibleText('#country', 'Brazil');
+
+// waits and returns an array of all windows opened
+helpers.waitForNewWindows();
 ```
 
 ### Visual Comparison
