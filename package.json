@@ -33,7 +33,7 @@
     "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
   },
   "engines": {
-    "node": ">=6.11.0"
+    "node": ">=12.19.0"
   },
   "engineStrict": true,
   "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
