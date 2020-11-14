@@ -1,0 +1,183 @@
+{
+  "name": "selenium-cucumber-js",
+  "version": "1.7.0",
+  "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": {
+    "name": "John Doherty",
+    "email": "contact@johndoherty.info",
+    "url": "https://courseof.life/johndoherty"
+  },
+  "license": "ISC",
+  "keywords": [
+    "selenium",
+    "selenium bdd",
+    "cucumber",
+    "cucumber-js",
+    "webdriver",
+    "selenium-webdriver",
+    "chromedriver",
+    "phantomjs",
+    "testing",
+    "junit",
+    "bdd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/john-doherty/selenium-cucumber-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
+  },
+  "engines": {
+    "node": ">=6.11.0"
+  },
+  "engineStrict": true,
+  "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
+  "dependencies": {
+    "chai": "3.5.0",
+    "chalk": "1.1.3",
+    "chromedriver": "^80.0.1",
+    "commander": "2.9.0",
+    "cucumber": "1.3.3",
+    "cucumber-html-reporter": "4.0.4",
+    "cucumber-junit": "1.6.0",
+    "electron": "^1.8.8",
+    "electron-chromedriver": "^1.7.1",
+    "electron-packager": "^9.1.0",
+    "electron-prebuilt": "^1.4.13",
+    "eyes.selenium": "0.0.72",
+    "fs-plus": "2.9.1",
+    "geckodriver": "^1.16.2",
+    "merge": "^1.2.1",
+    "phantomjs-prebuilt": "2.1.12",
+    "require-dir": "0.3.2",
+    "selenium-webdriver": "3.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "es6": false,
+      "browser": true
+    },
+    "globals": {
+      "selenium": true,
+      "helpers": true,
+      "page": true,
+      "driver": true,
+      "until": true,
+      "by": true,
+      "expect": true,
+      "Promise": true,
+      "browserName": true,
+      "DEFAULT_TIMEOUT": true
+    },
+    "rules": {
+      "brace-style": [
+        "error",
+        "stroustrup"
+      ],
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "func-names": 0,
+      "indent": [
+        "error",
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": [
+        2,
+        180,
+        4,
+        {
+          "ignoreUrls": true,
+          "ignoreComments": false
+        }
+      ],
+      "new-cap": [
+        "error",
+        {
+          "capIsNewExceptions": [
+            "Router",
+            "ObjectId",
+            "DEBUG"
+          ],
+          "properties": false
+        }
+      ],
+      "no-underscore-dangle": 0,
+      "no-unused-vars": [
+        "warn"
+      ],
+      "no-use-before-define": [
+        "error",
+        {
+          "functions": false
+        }
+      ],
+      "no-var": [
+        "off"
+      ],
+      "one-var": [
+        "off"
+      ],
+      "vars-on-top": [
+        "off"
+      ],
+      "no-param-reassign": [
+        "off"
+      ],
+      "no-lone-blocks": [
+        "off"
+      ],
+      "padded-blocks": 0,
+      "prefer-template": [
+        "off"
+      ],
+      "prefer-arrow-callback": [
+        "off"
+      ],
+      "default-case": [
+        "off"
+      ],
+      "wrap-iife": [
+        2,
+        "inside"
+      ],
+      "no-plusplus": [
+        "off"
+      ],
+      "require-jsdoc": [
+        "warn",
+        {
+          "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true
+          }
+        }
+      ],
+      "object-shorthand": [
+        "error",
+        "never"
+      ],
+      "space-before-function-paren": "off",
+      "strict": "off",
+      "valid-jsdoc": [
+        "error"
+      ]
+    }
+  }
+}
