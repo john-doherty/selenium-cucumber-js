@@ -63,7 +63,6 @@ Browser    | Example
 ---------- | ---------------
 Chrome     | `-b chrome`
 Firefox    | `-b firefox`
-Phantom JS | `-b phantomjs`
 Electron   | `-b electron`
 Custom     | `-b customDriver.js`
 
