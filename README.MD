@@ -4,6 +4,8 @@
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
+If you prefer to work with puppeteer check out [puppeteer-cucumber-js](https://github.com/orca-scan/puppeteer-cucumber-js)
+
 **Table of Contents**
 
 * [Installation](#installation)
