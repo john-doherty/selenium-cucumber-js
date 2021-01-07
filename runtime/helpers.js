@@ -335,6 +335,18 @@ module.exports = {
         return driver.executeScript(getAfterContentValue, cssSelector);
     },
 
+    /**
+     * Get local storage
+     * @returns {Promise} executes .then with value
+     * @example
+     *      helpers.getLocalStorage().then(function(localStorage) {
+     *          console.log(localStorage['token']);
+     *      });
+     */
+    getLocalStorage: function() {
+        return driver.executeScript(`return window.localStorage`);
+    },
+
     clearCookies: function() {
         return driver.manage().deleteAllCookies();
     },
