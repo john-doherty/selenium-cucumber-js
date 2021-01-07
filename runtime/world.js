@@ -63,7 +63,8 @@ function getDriverInstance() {
                 throw new Error('Could not find driver file: ' + driverFileName);
             }
 
-            driver = require(driverFileName)();
+            var CustomDriver = require(driverFileName)();
+            driver = new CustomDriver();
         }
     }
 
