@@ -1,4 +1,7 @@
-# selenium-cucumber-js
+# updated-selenium-cucumber-js
+
+# Updates
+Original package created by John Doherty, updated with some new dependencies. Not perfect yet, still in early alpha.
 
 [![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js)
 

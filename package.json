@@ -1,6 +1,6 @@
 {
   "name": "updated-selenium-cucumber-js",
-  "version": "1.8.2",
+  "version": "1.8.2-rc1",
   "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js, originally developed by John Doherty (contact@johndoherty.info).",
   "main": "index.js",
   "scripts": {
