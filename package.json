@@ -1,6 +1,6 @@
 {
   "name": "updated-selenium-cucumber-js",
-  "version": "1.8.2-rc1",
+  "version": "1.8.2",
   "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js, originally developed by John Doherty (contact@johndoherty.info).",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": {
     "name": "Mike Bäck",
     "email": "mike.baeck@protonmail.com",
-    "url": "https://courseof.life/johndoherty"
+    "url": "https://github.com/omgmajk/updated-selenium-cucumber-js"
   },
   "license": "ISC",
   "keywords": [
