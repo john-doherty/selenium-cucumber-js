@@ -1,14 +1,14 @@
 {
-  "name": "selenium-cucumber-js",
-  "version": "1.8.1",
-  "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js",
+  "name": "updated-selenium-cucumber-js",
+  "version": "1.8.2",
+  "description": "JavaScript browser automation framework using official selenium-webdriver and cucumber-js, originally developed by John Doherty (contact@johndoherty.info).",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
   },
   "author": {
-    "name": "John Doherty",
-    "email": "contact@johndoherty.info",
+    "name": "Mike Bäck",
+    "email": "mike.baeck@protonmail.com",
     "url": "https://courseof.life/johndoherty"
   },
   "license": "ISC",
@@ -20,14 +20,13 @@
     "webdriver",
     "selenium-webdriver",
     "chromedriver",
-    "phantomjs",
     "testing",
     "junit",
     "bdd"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/john-doherty/selenium-cucumber-js.git"
+    "url": "git://https://github.com/omgmajk/updated-selenium-cucumber-js.git"
   },
   "bugs": {
     "url": "https://github.com/john-doherty/selenium-cucumber-js/issues"
@@ -36,11 +35,11 @@
     "node": ">=12.19.0"
   },
   "engineStrict": true,
-  "homepage": "https://github.com/john-doherty/selenium-cucumber-js#readme",
+  "homepage": "https://github.com/omgmajk/updated-selenium-cucumber-js#readme",
   "dependencies": {
     "chai": "3.5.0",
     "chalk": "1.1.3",
-    "chromedriver": "^86.0.0",
+    "chromedriver": "^94.0.0",
     "commander": "2.9.0",
     "cucumber": "1.3.3",
     "cucumber-html-reporter": "4.0.4",
@@ -51,11 +50,10 @@
     "electron-prebuilt": "^1.4.13",
     "eyes.selenium": "0.0.72",
     "fs-plus": "2.9.1",
-    "geckodriver": "^1.16.2",
+    "geckodriver": "^2.0.4",
     "merge": "^1.2.1",
-    "phantomjs-prebuilt": "2.1.12",
     "require-dir": "0.3.2",
-    "selenium-webdriver": "3.5.0"
+    "selenium-webdriver": "3.6.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

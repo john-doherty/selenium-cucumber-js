@@ -21,7 +21,6 @@ var Eyes = require('eyes.selenium').Eyes;
 
 // drivers
 var FireFoxDriver = require('./firefoxDriver.js');
-var PhantomJSDriver = require('./phantomDriver.js');
 var ElectronDriver = require('./electronDriver.js');
 var ChromeDriver = require('./chromeDriver');
 
@@ -37,11 +36,6 @@ function getDriverInstance() {
 
         case 'firefox': {
             driver = new FireFoxDriver();
-        }
-            break;
-
-        case 'phantomjs': {
-            driver = new PhantomJSDriver();
         }
             break;
 
@@ -252,7 +246,7 @@ module.exports = function () {
             // add a screenshot to the error report
             return driver.takeScreenshot().then(function (screenShot) {
 
-                scenario.attach(new Buffer(screenShot, 'base64'), 'image/png');
+                scenario.attach(Buffer.from(screenShot, 'base64'), 'image/png');
 
                 return teardownBrowser().then(function() {
                     if (eyes) {
