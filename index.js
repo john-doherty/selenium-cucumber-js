@@ -33,7 +33,7 @@ var config = {
     timeout: 15000
 };
 
-var configFileName = path.resolve(process.cwd(), 'selenium-cucumber-js.json');
+var configFileName = path.resolve(process.cwd(), 'updated-selenium-cucumber-js.json');
 
 if (fs.isFileSync(configFileName)) {
     config = Object.assign(config, require(configFileName));

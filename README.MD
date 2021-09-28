@@ -2,8 +2,9 @@
 
 # Updates
 Original package created by John Doherty, updated with some new dependencies. Not perfect yet, still in early alpha.
+Currently maintained by Mike Bäck/omgMajk
 
-[![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/selenium-cucumber-js)
+[![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/updated-selenium-cucumber-js)
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
@@ -40,7 +41,7 @@ npm install updated-selenium-cucumber-js --save-dev
 ## Usage
 
 ```bash
-node ./node_modules/selenium-cucumber-js/index.js -s ./step-definitions
+node ./node_modules/updated-selenium-cucumber-js/index.js -s ./step-definitions
 ```
 
 ### Options
@@ -68,14 +69,14 @@ Browser    | Example
 ---------- | ---------------
 Chrome     | `-b chrome`
 Firefox    | `-b firefox`
-Electron   | `-b electron`
+Electron   | `-b electron`        -- Electron support sketchy at the moment
 Custom     | `-b customDriver.js`
 
 To use your own driver, create a customDriver.js file in the root of your project and provide the filename with the `-b` switch.
 
 #### Configuration file
 
-Configuration options can be set using a `selenium-cucumber-js.json` file at the root of your project. The JSON keys use the "long name" from the command line options. For example the following duplicates default configuration:
+Configuration options can be set using a `updated-selenium-cucumber-js.json` file at the root of your project. The JSON keys use the "long name" from the command line options. For example the following duplicates default configuration:
 
 ```json
 {
@@ -253,7 +254,7 @@ module.exports = function () {
 
 ### Helpers
 
-`selenium-cucumber-js` contains a few helper methods to make working with selenium a bit easier, those methods are:
+`updated-selenium-cucumber-js` contains a few helper methods to make working with selenium a bit easier, those methods are:
 
 ```js
 // Load a URL, returning only when the <body> tag is present
@@ -310,7 +311,7 @@ helpers.waitForNewWindows();
 
 ### Visual Comparison
 
-The `selenium-cucumber-js` framework uses [Applitools Eyes](https://applitools.com/) to add visual checkpoints to your JavaScript Selenium tests. It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Applitools Eyes server for validation and failing the test when differences are detected. To perform visual comparisons within your tests, obtain an [Applitools Eyes](https://applitools.com/) API Key and assign it to the `eye_key` property of the `selenium-cucumber-js.json` config file in the root of your project.
+The `updated-selenium-cucumber-js` framework uses [Applitools Eyes](https://applitools.com/) to add visual checkpoints to your JavaScript Selenium tests. It takes care of getting screenshots of your application from the underlying WebDriver, sending them to the Applitools Eyes server for validation and failing the test when differences are detected. To perform visual comparisons within your tests, obtain an [Applitools Eyes](https://applitools.com/) API Key and assign it to the `eye_key` property of the `updated-selenium-cucumber-js.json` config file in the root of your project.
 
 For example the following configuration could be used with an increased timeout which allows enough time for visual checks:
 
@@ -452,16 +453,16 @@ You can use the framework without any command line arguments if your application
 This project includes an example to help you get started. You can run the example using the following command:
 
 ```bash
-node ./node_modules/selenium-cucumber-js/index.js
+node ./node_modules/updated-selenium-cucumber-js/index.js
 ```
 
 ## Bugs
 
-Please raise bugs via the [selenium-cucumber-js issue tracker](https://github.com/john-doherty/selenium-cucumber-js/issues) and, if possible, please provide enough information to allow the bug to be reproduced.
+Please raise bugs via the [updated-selenium-cucumber-js issue tracker](https://github.com/omgmajk/updated-selenium-cucumber-js/issues) and, if possible, please provide enough information to allow the bug to be reproduced.
 
 ## Contributing
 
-Everyone is very welcome to contribute to this project. You can contribute just by submitting bugs or suggesting improvements by [opening an issue on GitHub](https://github.com/john-doherty/selenium-cucumber-js/issues).
+Everyone is very welcome to contribute to this project. You can contribute just by submitting bugs or suggesting improvements by [opening an issue on GitHub](https://github.com/omgmajk/updated-selenium-cucumber-js/issues).
 
 ## Troubleshooting
 
@@ -488,7 +489,7 @@ IntelliJ based IDE's have a plugin that allows the tester to control click on a 
 This can be achieved by restructuring your project to match the layout above _(notice the underscores)_, and running your tests with the following switches:
 
 ```bash
-node ./node_modules/selenium-cucumber-js/index.js -s ./features/step_definitions -p ./features/page_objects -o ./features/shared_objects -r ./features/reports
+node ./node_modules/updated-selenium-cucumber-js/index.js -s ./features/step_definitions -p ./features/page_objects -o ./features/shared_objects -r ./features/reports
 ```
 
 ### VSCode Cucumber Plugin
@@ -516,4 +517,4 @@ Following the default structure, the `settings.json` should look like this:
 
 ## License
 
-Licensed under [ISC License](LICENSE) &copy; [John Doherty](https://twitter.com/mrjohndoherty)
+Licensed under [ISC License](LICENSE) &copy; [John Doherty](https://twitter.com/mrjohndoherty), maintained by [Mike Bäck](https://github.com/omgmajk/)
