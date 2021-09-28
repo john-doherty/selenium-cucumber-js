@@ -34,7 +34,7 @@ If you prefer to work with puppeteer check out [puppeteer-cucumber-js](https://g
 ## Installation
 
 ```bash
-npm install selenium-cucumber-js --save-dev
+npm install updated-selenium-cucumber-js --save-dev
 ```
 
 ## Usage
