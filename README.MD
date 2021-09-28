@@ -4,7 +4,7 @@
 Original package created by John Doherty, updated with some new dependencies. Not perfect yet, still in early alpha.
 Currently maintained by Mike Bäck/omgMajk
 
-[![npm](https://img.shields.io/npm/dt/selenium-cucumber-js.svg)](https://www.npmjs.com/package/updated-selenium-cucumber-js)
+[![npm](https://img.shields.io/npm/dt/updated-selenium-cucumber-js.svg)](https://www.npmjs.com/package/updated-selenium-cucumber-js)
 
 JavaScript browser automation framework using official [selenium-webdriver](http://seleniumhq.github.io/selenium/docs/api/javascript/ "view webdriver js documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
