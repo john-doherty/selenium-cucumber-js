@@ -34,6 +34,9 @@ If you prefer to work with puppeteer check out [puppeteer-cucumber-js](https://g
 
 ## Installation
 
+To start using updated-selenium-js, usually create an empty folder and cd into it, then run the following commands
+`npm init` or `npm init -y` for quick-start
+
 ```bash
 npm install updated-selenium-cucumber-js --save-dev
 ```
@@ -42,6 +45,12 @@ npm install updated-selenium-cucumber-js --save-dev
 
 ```bash
 node ./node_modules/updated-selenium-cucumber-js/index.js -s ./step-definitions
+```
+
+You can also edit the "test" field in package.json to look something like this: `"test" : "node ./node_modules/updated-selenium-cucumber-js/index.js"` for windows machines or `"test" : "./node_modules/updated-selenium-cucumber-js/index.js"` for Mac OS-X and Linux machines and then run:
+
+```bash
+npm run test
 ```
 
 ### Options

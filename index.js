@@ -58,7 +58,7 @@ program
     .parse(process.argv);
 
 program.on('--help', function () {
-    console.log('  For more details please visit https://github.com/john-doherty/selenium-cucumber-js#readme\n');
+    console.log('  For more details please visit https://github.com/omgmajk/updated-selenium-cucumber-js#readme\n');
 });
 
 // store browserName globally (used within world.js to build driver)
