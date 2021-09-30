@@ -22,7 +22,8 @@ var Eyes = require('eyes.selenium').Eyes;
 // drivers
 var FireFoxDriver = require('./firefoxDriver.js');
 var ElectronDriver = require('./electronDriver.js');
-var ChromeDriver = require('./chromeDriver');
+var ChromeDriver = require('./chromeDriver.js');
+var ChromeHeadless = require('./chromeHeadless.js'); // Experimental
 
 /**
  * create the selenium browser based on global var set in index.js
@@ -33,7 +34,7 @@ function getDriverInstance() {
     var driver;
 
     switch (browserName || '') {
-
+        
         case 'firefox': {
             driver = new FireFoxDriver();
         }
@@ -46,6 +47,11 @@ function getDriverInstance() {
 
         case 'chrome': {
             driver = new ChromeDriver();
+        }
+            break;
+
+        case 'chromeHeadless': {
+            driver = new ChromeHeadless();
         }
             break;
 
