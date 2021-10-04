@@ -14,7 +14,8 @@ module.exports = function() {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-            args: ['start-maximized', 'disable-extensions']
+            args: ['start-maximized', 'disable-extensions'],
+            excludeSwitches: ['enable-logging'] // Re-enable this if you want more verbose logging. Usually not needed.
         },
         path: chromedriver.path
     }).build();
