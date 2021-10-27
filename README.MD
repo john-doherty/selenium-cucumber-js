@@ -74,13 +74,13 @@ npm run test
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
 
-Browser         | Example
-----------      | ---------------
-Chrome          | `-b chrome`
-Firefox         | `-b firefox`
-Electron        | `-b electron`        -- Electron support sketchy at the moment
-Chrome Headless | `-b chromeHeadless`  -- Only chrome headless support for now
-Custom          | `-b customDriver.js`
+Browser         | Example               | Further info
+----------      | ---------------       | ------------------
+Chrome          | `-b chrome`           |
+Firefox         | `-b firefox`          |
+Electron        | `-b electron`         | Electron support sketchy at the moment
+Chrome Headless | `-b chromeHeadless`   | Only chrome headless support for now
+Custom          | `-b customDriver.js`  |
 
 To use your own driver, create a customDriver.js file in the root of your project and provide the filename with the `-b` switch.
 
